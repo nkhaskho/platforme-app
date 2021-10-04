@@ -1,4 +1,5 @@
 export class Software {
+    id?: number = 0;
     type: string = "";
     version: string = "";
     designation: string = "";

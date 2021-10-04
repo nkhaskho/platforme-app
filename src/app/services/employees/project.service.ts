@@ -20,4 +20,12 @@ export class ProjectService {
     return this.http.get<Project>(`${this.API_URL}/employees/projects/${projectId}`);
   }
 
+  updateProject(project: Project) {
+    return this.http.put<Project>(`${this.API_URL}/employees/projects/${project.id}/`, project);
+  }
+
+  addProject(project: Project) {
+    return this.http.post<Project>(`${this.API_URL}/employees/projects/`, project);
+  }
+
 }

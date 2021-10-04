@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginForm } from 'src/app/models/login-form';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -10,7 +10,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm = new LoginForm();
+  loginForm = new LoginForm(); 
+  @Output() loginEmitter = new EventEmitter();
   errors = {
     username: "",
     password: ""
@@ -22,16 +23,16 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm)
   }
 
-  login() {
+  async login() {
     console.log(this.loginForm);
-    this.authService.authenticate(this.loginForm).subscribe(
+    await this.authService.authenticate(this.loginForm).subscribe(
       response => {
         this.authService.newLoggedUser(this.loginForm.username, response.access);
+        this.loginEmitter.emit(this.loginForm.username);
         this.router.navigate(['home'])
       },
       error => console.log(error)
     )
-    
   }
 
 }

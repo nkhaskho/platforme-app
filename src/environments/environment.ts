@@ -9,6 +9,22 @@ export const environment = {
     "PROJECT_MANAGER",
     "TEAM_LEADER",
     "TEAM_MEMBER"
+  ],
+  RESERVATIONS_STATUS: [
+    "IN_PROGRESS",
+    "VALIDATED", 
+    "POSTPONED", 
+    "REJECTED"
+  ],
+  EQUIPMENTS_TYPES: [
+    {
+      abbreviation: "HW",
+      designation: "Hardware"
+    },
+    {
+      abbreviation: "SW",
+      designation: "Software"
+    }
   ]
 };
 

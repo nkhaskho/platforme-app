@@ -16,6 +16,10 @@ export class UserService {
     return this.http.get<User[]>(`${this.API_URL}/employees/users/`);
   }
 
+  getUserById(userId: number) {
+    return this.http.get<User>(`${this.API_URL}/employees/users/${userId}`);
+  }
+
   getUsersByProject(projectId: number) {
     return this.http.get<User[]>(`${this.API_URL}/employees/users/users?project=${projectId}`);
   }

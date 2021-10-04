@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Project page</h5>
+                <br>
+                <div class="mb-3">
+                    <label class="form-label">Project Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="project.name">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" rows="3"></textarea>
+                  </div>
+                  <br>
+                  <div *ngIf="messages.message.length>0" class="alert alert-success" role="alert">
+                    {{messages.message}}
+                  </div>
+                  <div *ngIf="messages.error.length>0" class="alert alert-warning" role="alert">
+                    {{messages.error}}
+                  </div>
+                  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-success" type="button" (click)="saveChange()">
+                        <img src="assets/icons/pencil-square.svg" class="app-icon" alt="">Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>

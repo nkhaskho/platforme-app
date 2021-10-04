@@ -1,4 +1,5 @@
 export class GenericFunction {
+    id?: number = 0;
     language: string = "";
     title: string = "";
     description: string = "";

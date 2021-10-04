@@ -1,17 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { ProjectsComponent } from './components/employees/projects/projects.component';
-import { UserComponent } from './components/employees/users/user/user.component';
-import { UsersComponent } from './components/employees/users/users.component';
+import { EditProjectComponent } from './components/employees/project/edit-project/edit-project.component';
+import { ProjectsComponent } from './components/employees/project/projects/projects.component';
+import { EditUserComponent } from './components/employees/user/edit-user/edit-user.component';
+import { UsersComponent } from './components/employees/user/users/users.component';
 import { LoginComponent } from './components/login/login.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { EditReservationComponent } from './components/reservations/edit-reservation/edit-reservation.component';
 import { ReservationsComponent } from './components/reservations/reservations/reservations.component';
-import { DocumentsComponent } from './components/tools/documents/documents.component';
-import { GenericFunctionsComponent } from './components/tools/generic-functions/generic-functions.component';
-import { HardwaresComponent } from './components/tools/hardwares/hardwares.component';
-import { SoftwaresComponent } from './components/tools/softwares/softwares.component';
-import { LoginForm } from './models/login-form';
+import { DocumentsComponent } from './components/tools/document/documents/documents.component';
+import { EditDocumentComponent } from './components/tools/document/edit-document/edit-document.component';
+import { EditGenericFunctionComponent } from './components/tools/generic-function/edit-generic-function/edit-generic-function.component';
+import { GenericFunctionsComponent } from './components/tools/generic-function/generic-functions/generic-functions.component';
+import { EditHardwareComponent } from './components/tools/hardware/edit-hardware/edit-hardware.component';
+import { HardwaresComponent } from './components/tools/hardware/hardwares/hardwares.component';
+import { EditSoftwareComponent } from './components/tools/software/edit-software/edit-software.component';
+import { SoftwaresComponent } from './components/tools/software/softwares/softwares.component';
 
 const routes: Routes = [
   {
@@ -24,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: "users/:id",
-    component: UserComponent
+    component: EditUserComponent
   },
   {
     path: "users",
@@ -35,24 +39,48 @@ const routes: Routes = [
     component: ProjectsComponent
   },
   {
+    path: "projects/:id",
+    component: EditProjectComponent
+  },
+  {
     path: "reservations",
     component: ReservationsComponent
+  },
+  {
+    path: "reservations/:id",
+    component: EditReservationComponent
   },
   {
     path: "softwares",
     component: SoftwaresComponent
   },
   {
+    path: "softwares/:id",
+    component: EditSoftwareComponent
+  },
+  {
     path: "hardwares",
     component: HardwaresComponent
+  },
+  {
+    path: "hardwares/:id",
+    component: EditHardwareComponent
   },
   {
     path: "documents",
     component: DocumentsComponent
   },
   {
+    path: "documents/:id",
+    component: EditDocumentComponent
+  },
+  {
     path: "generic-functions",
     component: GenericFunctionsComponent
+  },
+  {
+    path: "generic-functions/:id",
+    component: EditGenericFunctionComponent
   }
 ];
 

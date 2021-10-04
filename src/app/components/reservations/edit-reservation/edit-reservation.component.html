@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Reservation page</h5>
+                <br>
+                <div class="mb-3">
+                    <label class="form-label">Employee id</label>
+                    <input type="email" class="form-control" [(ngModel)]="reservation.user">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Equipment type</label>
+                    <select class="form-select mb-3" [(ngModel)]="reservation.equipment_type">
+                        <option *ngFor="let type of types" [ngValue]="type.abbreviation">
+                          {{type.designation}}
+                        </option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Start date</label>
+                    <input type="datetime-local" class="form-control" [(ngModel)]="reservation.start_date">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">End date</label>
+                    <input type="datetime-local" class="form-control" [(ngModel)]="reservation.end_date">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Status</label>
+                    <select class="form-select mb-3" [(ngModel)]="reservation.status">
+                      <option *ngFor="let state of status" value="{{state}}">
+                        {{state}}
+                      </option>
+                    </select>
+                  </div>
+                  <br>
+                  <div *ngIf="messages.message.length>0" class="alert alert-success" role="alert">
+                    {{messages.message}}
+                  </div>
+                  <div *ngIf="messages.error.length>0" class="alert alert-warning" role="alert">
+                    {{messages.error}}
+                  </div>
+                  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-success" type="button" (click)="saveChange()">
+                        <img src="assets/icons/pencil-square.svg" class="app-icon" alt="">Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
