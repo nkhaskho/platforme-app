@@ -15,6 +15,7 @@ import { HardwaresComponent } from './components/tools/hardwares/hardwares.compo
 import { GenericFunctionsComponent } from './components/tools/generic-functions/generic-functions.component';
 import { DocumentsComponent } from './components/tools/documents/documents.component';
 import { ReservationsComponent } from './components/reservations/reservations/reservations.component';
+import { UserComponent } from './components/employees/users/user/user.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ReservationsComponent } from './components/reservations/reservations/re
     HardwaresComponent,
     GenericFunctionsComponent,
     DocumentsComponent,
-    ReservationsComponent
+    ReservationsComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
