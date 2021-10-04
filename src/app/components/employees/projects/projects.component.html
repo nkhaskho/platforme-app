@@ -1,1 +1,26 @@
-<p>projects works!</p>
+<div class="card-body">
+    <h5 class="card-title">Projects</h5>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-success" type="button">
+            <img src="assets/icons/plus.svg" class="app-icon" alt="">Add
+        </button>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Projects List</h5>
+          <!-- -->
+          <br>
+          <div class="row">
+            <div class="card project-card" *ngFor="let project of projects">
+                <div class="card-body">
+                  <h5 class="card-title">{{project.name}}</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+              </div>
+          </div>
+          <br>
+        </div>
+      </div>
+  </div>

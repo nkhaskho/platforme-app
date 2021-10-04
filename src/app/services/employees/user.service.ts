@@ -13,11 +13,11 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getAllUsers() {
-    return this.http.get<User[]>(`${this.API_URL}/users`);
+    return this.http.get<User[]>(`${this.API_URL}/employees/users/`);
   }
 
   getUsersByProject(projectId: number) {
-    return this.http.get<User[]>(`${this.API_URL}/users?project=${projectId}`);
+    return this.http.get<User[]>(`${this.API_URL}/employees/users/users?project=${projectId}`);
   }
 
 }

@@ -24,5 +24,10 @@ export class AuthService {
     localStorage.setItem("user", username);
     localStorage.setItem("access", accessToken);
   }
+
+  logOutUser() {
+    localStorage.setItem("user", "");
+    localStorage.setItem("access", "");
+  }
   
 }

@@ -13,11 +13,11 @@ export class ProjectService {
   constructor(private http: HttpClient) { }
 
   getAllProjects() {
-    return this.http.get<Project[]>(`${this.API_URL}/projects`);
+    return this.http.get<Project[]>(`${this.API_URL}/employees/projects`);
   }
 
   getProjectById(projectId: number) {
-    return this.http.get<Project>(`${this.API_URL}/projects/${projectId}`);
+    return this.http.get<Project>(`${this.API_URL}/employees/projects/${projectId}`);
   }
 
 }
