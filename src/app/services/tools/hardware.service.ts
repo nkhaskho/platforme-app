@@ -16,6 +16,10 @@ export class HardwareService {
     return this.http.post<Hardware>(`${this.API_URL}/`, hardware);
   }
 
+  getHardwareById(id: any) {
+    return this.http.get<Hardware>(`${this.API_URL}/${id}/`);
+  }
+
   getAllHardwares() {
     return this.http.get<Hardware[]>(`${this.API_URL}`);
   }

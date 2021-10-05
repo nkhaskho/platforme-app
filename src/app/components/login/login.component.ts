@@ -16,6 +16,10 @@ export class LoginComponent implements OnInit {
     username: "",
     password: ""
   }
+  messages = {
+    error: "",
+    message: ""
+  }
 
   constructor(private router: Router, private authService: AuthService) { }
 
@@ -27,11 +31,19 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm);
     await this.authService.authenticate(this.loginForm).subscribe(
       response => {
+        this.messages.error = "";
         this.authService.newLoggedUser(this.loginForm.username, response.access);
         this.loginEmitter.emit(this.loginForm.username);
         this.router.navigate(['home'])
       },
-      error => console.log(error)
+      httpError => {
+        console.log(httpError);
+        try {
+          this.messages.error = httpError.error.detail
+        } finally {
+          this.messages.error = "Invalid credentials"
+        }
+      }
     )
   }
 

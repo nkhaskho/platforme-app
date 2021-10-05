@@ -1,1 +1,75 @@
-<p>edit-software works!</p>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a routerLink="/softwares">Softwares</a> > {{software.designation}}
+        </h5>
+        <br>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-5">
+            <div class="mb-3">
+                <label class="form-label">Designation</label>
+                <input type="text" class="form-control" [(ngModel)]="software.designation">
+              </div>
+              <div class="mb-3">
+                  <label class="form-label">Version</label>
+                  <input type="text" class="form-control" [(ngModel)]="software.version">
+              </div>
+              <div class="mb-3">
+                  <label class="form-label">Serial Number</label>
+                  <input type="text" class="form-control" [(ngModel)]="software.serial_number">
+              </div>
+              <div class="mb-3">
+                  <label class="form-label">QA Reference</label>
+                  <input type="text" class="form-control" [(ngModel)]="software.qa_reference">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Status</label>
+                <select class="form-select mb-3" [(ngModel)]="software.status">
+                  <option *ngFor="let state of status" value="{{state}}">
+                    {{state}}
+                  </option>
+                </select>
+              </div>
+        </div>
+            <div class="col-md-5">
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea type="text" class="form-control" [(ngModel)]="software.description">
+                    </textarea>
+                  </div>
+                  <div class="mb-3">
+                      <label class="form-label">Buy date</label>
+                      <input type="datetime-local" [(ngModel)]="software.buy_date" class="form-control">
+                    </div>
+                  <div class="mb-3">
+                    <label class="form-label">Details</label>
+                    <textarea type="text" class="form-control" [(ngModel)]="software.details">
+                    </textarea>
+                  </div>
+
+        </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-10">
+            <br>
+            <div *ngIf="messages.message.length>0" class="alert alert-success" role="alert">
+              {{messages.message}}
+            </div>
+            <div *ngIf="messages.error.length>0" class="alert alert-warning" role="alert">
+              {{messages.error}}
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-success" type="button" (click)="saveChange()">
+                  <img src="assets/icons/pencil-square.svg" class="app-icon" alt="">Save
+              </button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  

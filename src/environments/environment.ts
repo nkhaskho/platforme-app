@@ -25,6 +25,13 @@ export const environment = {
       abbreviation: "SW",
       designation: "Software"
     }
+  ],
+  EQUIPMENT_STATUS: [
+    "OBSOLETE",
+    "AVAILABLE",
+    "UNDER_REPAIR",
+    "SAMPLING",
+    "UNRELIABLE"
   ]
 };
 

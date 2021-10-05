@@ -26,7 +26,7 @@
               <td>
                   <img src="assets/icons/eye.svg" class="app-icon" alt="">
                   <img src="assets/icons/pencil-square.svg" routerLink="/projects/{{project.id}}" class="app-icon" alt="">
-                  <img src="assets/icons/trash.svg" (click)="deleteProject(i)" type="button" class="app-icon" alt="">
+                  <img src="assets/icons/trash.svg" (click)="selectProjectIndex(i)" data-bs-toggle="modal" data-bs-target="#deleteProjectModal" type="button" class="app-icon" alt="">
               </td>
             </tr>
           </tbody>
@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" id="dismiss-add-project" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         <button type="button" (click)="addNewProject()" class="btn btn-primary">Add project</button>
       </div>
     </div>
@@ -72,8 +72,8 @@
         <p>Do you want to remove this project permanetly.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" id="dismiss-delete-project" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" (click)="deleteProject()" class="btn btn-danger">Delete</button>
       </div>
     </div>
   </div>

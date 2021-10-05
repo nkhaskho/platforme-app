@@ -1,1 +1,75 @@
-<p>edit-hardware works!</p>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">
+            <a routerLink="/hardwares">Hardwares</a> > {{hardware.designation}}
+        </h5>
+        <br>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-5">
+            <div class="mb-3">
+                <label class="form-label">Designation</label>
+                <input type="text" class="form-control" [(ngModel)]="hardware.designation">
+              </div>
+              <div class="mb-3">
+                  <label class="form-label">Version</label>
+                  <input type="text" class="form-control" [(ngModel)]="hardware.version">
+              </div>
+              <div class="mb-3">
+                  <label class="form-label">Licence</label>
+                  <input type="text" class="form-control" [(ngModel)]="hardware.licence">
+              </div>
+              <div class="mb-3">
+                  <label class="form-label">Comptability</label>
+                  <input type="text" class="form-control" [(ngModel)]="hardware.comptability">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Status</label>
+                <select class="form-select mb-3" [(ngModel)]="hardware.status">
+                  <option *ngFor="let state of status" value="{{state}}">
+                    {{state}}
+                  </option>
+                </select>
+              </div>
+        </div>
+            <div class="col-md-5">
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea type="text" class="form-control" [(ngModel)]="hardware.description">
+                    </textarea>
+                  </div>
+                  <div class="mb-3">
+                      <label class="form-label">Link</label>
+                      <input type="text" [(ngModel)]="hardware.link" class="form-control">
+                    </div>
+                  <div class="mb-3">
+                    <label class="form-label">Drivers</label>
+                    <textarea type="text" class="form-control" [(ngModel)]="hardware.drivers">
+                    </textarea>
+                  </div>
+
+        </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-10">
+            <br>
+            <div *ngIf="messages.message.length>0" class="alert alert-success" role="alert">
+              {{messages.message}}
+            </div>
+            <div *ngIf="messages.error.length>0" class="alert alert-warning" role="alert">
+              {{messages.error}}
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-success" type="button" (click)="saveChange()">
+                  <img src="assets/icons/pencil-square.svg" class="app-icon" alt="">Save
+              </button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  

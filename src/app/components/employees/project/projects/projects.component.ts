@@ -11,6 +11,7 @@ export class ProjectsComponent implements OnInit {
 
   projects: Project[] = [];
   newProject: Project = new Project();
+  projectIndex: number = 0;
 
   constructor(private projectService: ProjectService) { }
 
@@ -21,21 +22,26 @@ export class ProjectsComponent implements OnInit {
     )
   }
 
+  selectProjectIndex(index: number) {
+    this.projectIndex = index;
+  }
+
   addNewProject() {
     this.projectService.addProject(this.newProject).subscribe(
       httpResponse => {
         this.projects.push(httpResponse);
         this.newProject = new Project();
+        document.getElementById("dismiss-add-project")?.click();
       },
       httpError => console.log(httpError)
     )
   }
 
-  deleteProject(index: number) {
-    this.projectService.deleteProject(this.projects[index].id).subscribe(
+  deleteProject() {
+    this.projectService.deleteProject(this.projects[this.projectIndex].id).subscribe(
       data => {
-        console.log(data);
-        this.projects.splice(index, 1);
+        this.projects.splice(this.projectIndex, 1);
+        document.getElementById("dismiss-delete-project")?.click();
       }
     )
   }
