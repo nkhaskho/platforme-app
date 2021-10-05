@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Reservation } from 'src/app/models/reservations/reservation';
 import { EquipmentType } from 'src/app/models/tools/equipment-type';
+import { Hardware } from 'src/app/models/tools/hardware';
+import { Software } from 'src/app/models/tools/software';
 import { ReservationService } from 'src/app/services/reservations/reservation.service';
+import { HardwareService } from 'src/app/services/tools/hardware.service';
+import { SoftwareService } from 'src/app/services/tools/software.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -12,16 +16,20 @@ import { environment } from 'src/environments/environment';
 })
 export class EditReservationComponent implements OnInit {
 
-  status :string[] = [];
-  types: EquipmentType[] = [];
+  status :string[] = environment.RESERVATIONS_STATUS;
+  types: EquipmentType[] = environment.EQUIPMENTS_TYPES;
   reservation: Reservation = new Reservation();
+  hardwares: Hardware[] = [];
+  softwares: Software[] = [];
   messages = {
     error: "",
     message: ""
   }
 
   constructor(private activatedRoute: ActivatedRoute,
-              private reservationService: ReservationService) { }
+              private reservationService: ReservationService,
+              private softwareService: SoftwareService,
+              private hardwareService: HardwareService) { }
 
   async ngOnInit() {
     let reservationId = parseInt(this.activatedRoute.snapshot.params["id"]);
@@ -35,8 +43,12 @@ export class EditReservationComponent implements OnInit {
       httpError => console.log(httpError)
     );
     console.log(this.reservation)
-    this.status = environment.RESERVATIONS_STATUS;
-    this.types = environment.EQUIPMENTS_TYPES;
+    await this.softwareService.getAllSoftwares().subscribe(
+      data => this.softwares = data
+    );
+    await this.hardwareService.getAllHardwares().subscribe(
+      data => this.hardwares = data
+    );
   }
 
   saveChange() {

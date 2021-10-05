@@ -1,7 +1,7 @@
 <div class="card-body">
     <h5 class="card-title">Reservations</h5>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-success" type="button">
+        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#reservationModal">
             <img src="assets/icons/plus.svg" class="app-icon" alt="">Add
         </button>
     </div>
@@ -31,6 +31,7 @@
                 <td>
                   <span *ngIf="reservation.status=='IN_PROGRESS'" class="badge bg-secondary">{{reservation.status}}</span>
                   <span *ngIf="reservation.status=='VALIDATED'" class="badge bg-success">{{reservation.status}}</span>
+                  <span *ngIf="reservation.status=='POSTPONED'" class="badge bg-warning">{{reservation.status}}</span>
                   <span *ngIf="reservation.status=='REJECTED'" class="badge bg-danger">{{reservation.status}}</span>
                 </td>
                 <td>
@@ -43,4 +44,67 @@
           </table>
         </div>
     </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reservationModalLabel">Reservation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- -->
+        <div class="mb-3">
+          <label class="form-label">Employee id</label>
+          <input type="email" class="form-control" [(ngModel)]="newReservation.user">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Equipment type</label>
+          <select class="form-select mb-3" [(ngModel)]="newReservation.equipment_type">
+              <option *ngFor="let type of types" [ngValue]="type.abbreviation">
+                {{type.designation}}
+              </option>
+          </select>
+        </div>
+        <div *ngIf="newReservation.equipment_type=='HW'" class="mb-3">
+          <label class="form-label">Hardware Equipment</label>
+          <select class="form-select mb-3" [(ngModel)]="newReservation.hw_equipment">
+              <option *ngFor="let hardware of hardwares" [ngValue]="hardware.id">
+                {{hardware.designation}}
+              </option>
+          </select>
+        </div>
+        <div *ngIf="newReservation.equipment_type=='SW'" class="mb-3">
+          <label class="form-label">Software Equipment</label>
+          <select class="form-select mb-3" [(ngModel)]="newReservation.hw_equipment">
+              <option *ngFor="let software of softwares" [ngValue]="software.id">
+                {{software.designation}}
+              </option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Start date</label>
+          <input type="datetime-local" class="form-control" [(ngModel)]="newReservation.start_date">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">End date</label>
+          <input type="datetime-local" class="form-control" [(ngModel)]="newReservation.end_date">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Status</label>
+          <select class="form-select mb-3" [(ngModel)]="newReservation.status">
+            <option *ngFor="let state of status" value="{{state}}">
+              {{state}}
+            </option>
+          </select>
+        </div>
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" (click)="addNewReservation()" class="btn btn-primary">Add reservation</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -12,7 +12,7 @@ import { ProjectsComponent } from './components/employees/project/projects/proje
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SoftwaresComponent } from './components/tools/software/softwares/softwares.component';
 import { HardwaresComponent } from './components/tools/hardware/hardwares/hardwares.component';
-import { GenericFunctionsComponent } from './components/tools/generic-function/generic-functions/generic-functions.component';
+import { GenericFunctionsComponent } from './components/tools/generic-functions/generic-functions.component';
 import { DocumentsComponent } from './components/tools/document/documents/documents.component';
 import { ReservationsComponent } from './components/reservations/reservations/reservations.component';
 import { EditUserComponent } from './components/employees/user/edit-user/edit-user.component';

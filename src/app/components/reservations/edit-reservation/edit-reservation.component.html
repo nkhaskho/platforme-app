@@ -17,6 +17,22 @@
                         </option>
                     </select>
                   </div>
+                  <div *ngIf="reservation.equipment_type=='HW'" class="mb-3">
+                    <label class="form-label">Hardware Equipment</label>
+                    <select class="form-select mb-3" [(ngModel)]="reservation.hw_equipment">
+                        <option *ngFor="let hardware of hardwares" [ngValue]="hardware.id">
+                          {{hardware.designation}}
+                        </option>
+                    </select>
+                  </div>
+                  <div *ngIf="reservation.equipment_type=='SW'" class="mb-3">
+                    <label class="form-label">Software Equipment</label>
+                    <select class="form-select mb-3" [(ngModel)]="reservation.hw_equipment">
+                        <option *ngFor="let software of softwares" [ngValue]="software.id">
+                          {{software.designation}}
+                        </option>
+                    </select>
+                  </div>
                   <div class="mb-3">
                     <label class="form-label">Start date</label>
                     <input type="datetime-local" class="form-control" [(ngModel)]="reservation.start_date">

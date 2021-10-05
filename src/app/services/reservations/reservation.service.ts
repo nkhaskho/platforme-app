@@ -13,6 +13,10 @@ export class ReservationService {
 
   constructor(private http: HttpClient) { }
 
+  addReservation(reservation: Reservation) {
+    return this.http.post<Reservation>(`${this.API_URL}/reservations/`, reservation);
+  }
+
   getReservationById(reservationId: number) {
     return this.http.get<Reservation>(`${this.API_URL}/reservations/${reservationId}`);
   }

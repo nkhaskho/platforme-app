@@ -28,4 +28,8 @@ export class ProjectService {
     return this.http.post<Project>(`${this.API_URL}/employees/projects/`, project);
   }
 
+  deleteProject(projectId: any) {
+    return this.http.delete<any>(`${this.API_URL}/employees/projects/${projectId}`);
+  }
+
 }

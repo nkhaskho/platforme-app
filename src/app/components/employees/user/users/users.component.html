@@ -7,39 +7,40 @@
     </div>
     <br>
     <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Employees list</h5>
-          <!-- -->
-          <br>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Username</th>
-                <th scope="col">RN</th>
-                <th scope="col">Project</th>
-                <th scope="col">Role</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let user of users">
-                <th scope="row">{{user.id}}</th>
-                <td>{{user.username}}</td>
-                <td>{{user.registration_number}}</td>
-                <td>{{user.project}}</td>
-                <td>{{user.role}}</td>
-                <td>
-                    <img src="assets/icons/eye.svg" class="app-icon" alt="">
-                    <img src="assets/icons/pencil-square.svg" routerLink="/users/{{user.id}}" class="app-icon" alt="">
-                    <img src="assets/icons/trash.svg" data-bs-toggle="modal" data-bs-target="#deleteUserModal" class="app-icon" alt="">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="card-body">
+        <h5 class="card-title">Employees list</h5>
+        <!-- -->
+        <br>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Username</th>
+              <th scope="col">RN</th>
+              <th scope="col">Project</th>
+              <th scope="col">Role</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <th scope="row">{{user.id}}</th>
+              <td>{{user.username}}</td>
+              <td>{{user.registration_number}}</td>
+              <td>{{user.project}}</td>
+              <td>{{user.role}}</td>
+              <td>
+                  <img src="assets/icons/eye.svg" class="app-icon" alt="">
+                  <img src="assets/icons/pencil-square.svg" routerLink="/users/{{user.id}}" class="app-icon" alt="">
+                  <img src="assets/icons/trash.svg" data-bs-toggle="modal" data-bs-target="#deleteUserModal" class="app-icon" alt="">
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-  </div>
+    </div>
+    
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">

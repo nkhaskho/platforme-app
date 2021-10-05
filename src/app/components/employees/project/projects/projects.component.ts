@@ -23,8 +23,20 @@ export class ProjectsComponent implements OnInit {
 
   addNewProject() {
     this.projectService.addProject(this.newProject).subscribe(
-      httpResponse => this.projects.push(httpResponse),
+      httpResponse => {
+        this.projects.push(httpResponse);
+        this.newProject = new Project();
+      },
       httpError => console.log(httpError)
+    )
+  }
+
+  deleteProject(index: number) {
+    this.projectService.deleteProject(this.projects[index].id).subscribe(
+      data => {
+        console.log(data);
+        this.projects.splice(index, 1);
+      }
     )
   }
 

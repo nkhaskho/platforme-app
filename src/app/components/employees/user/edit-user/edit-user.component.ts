@@ -16,6 +16,10 @@ export class EditUserComponent implements OnInit {
   user: User = new User();
   roles = environment.ROLES;
   projects: Project[] = [];
+  messages = {
+    error: "",
+    message: ""
+  }
 
   constructor(private userService: UserService, 
               private activatedRoute: ActivatedRoute,
