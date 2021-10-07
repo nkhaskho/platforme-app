@@ -12,7 +12,7 @@ import { ProjectsComponent } from './components/employees/project/projects/proje
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SoftwaresComponent } from './components/tools/software/softwares/softwares.component';
 import { HardwaresComponent } from './components/tools/hardware/hardwares/hardwares.component';
-import { GenericFunctionsComponent } from './components/tools/generic-functions/generic-functions.component';
+import { GenericFunctionsComponent } from './components/tools/generic-function/generic-functions/generic-functions.component';
 import { DocumentsComponent } from './components/tools/document/documents/documents.component';
 import { ReservationsComponent } from './components/reservations/reservations/reservations.component';
 import { EditUserComponent } from './components/employees/user/edit-user/edit-user.component';
@@ -26,6 +26,8 @@ import { UserComponent } from './components/employees/user/user/user.component';
 import { HardwareComponent } from './components/tools/hardware/hardware/hardware.component';
 import { SoftwareComponent } from './components/tools/software/software/software.component';
 import { ReservationComponent } from './components/reservations/reservation/reservation.component';
+import { DocumentComponent } from './components/tools/document/document/document.component';
+import { GenericFunctionComponent } from './components/tools/generic-function/generic-function/generic-function.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,9 @@ import { ReservationComponent } from './components/reservations/reservation/rese
     UserComponent,
     HardwareComponent,
     SoftwareComponent,
-    ReservationComponent
+    ReservationComponent,
+    DocumentComponent,
+    GenericFunctionComponent
   ],
   imports: [
     BrowserModule,

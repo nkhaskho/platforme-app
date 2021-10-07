@@ -11,7 +11,7 @@ import { ReservationsComponent } from './components/reservations/reservations/re
 import { DocumentsComponent } from './components/tools/document/documents/documents.component';
 import { EditDocumentComponent } from './components/tools/document/edit-document/edit-document.component';
 import { EditGenericFunctionComponent } from './components/tools/generic-function/edit-generic-function/edit-generic-function.component';
-import { GenericFunctionsComponent } from './components/tools/generic-functions/generic-functions.component';
+import { GenericFunctionsComponent } from './components/tools/generic-function/generic-functions/generic-functions.component';
 import { EditHardwareComponent } from './components/tools/hardware/edit-hardware/edit-hardware.component';
 import { HardwaresComponent } from './components/tools/hardware/hardwares/hardwares.component';
 import { EditSoftwareComponent } from './components/tools/software/edit-software/edit-software.component';

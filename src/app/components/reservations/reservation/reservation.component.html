@@ -3,19 +3,26 @@
         <tr>
             <th scope="row">
                 <img src="assets/icons/user.svg" alt="">
+                Requester
             </th>
-            <td>{{reservation.user}}</td>
+            <td>
+                <a class="button">{{users[reservation.id.toString()]}}</a>
+            </td>
+            <td></td>
         </tr>
         <tr>
             <th scope="row">
                 <img src="assets/icons/email.svg" alt="">
+                Status
             </th>
             <td>{{reservation.status}}</td>
+            <td></td>
         </tr>
         <tr>
             <th scope="row">
                 <img src="assets/icons/briefcase.svg" alt="">
             </th>
+            <td></td>
             <td></td>
         </tr>
     </tbody>

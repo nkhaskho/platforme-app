@@ -41,6 +41,16 @@ export const environment = {
     "UNDER_REPAIR",
     "SAMPLING",
     "UNRELIABLE"
+  ],
+  DOCUMENT_TYPES: [
+    'GUIDE',
+    'MEMO'
+  ],
+  DOCUMENT_STATES: [
+      'DRAFT',
+      'IN_PROOFREADING',
+      'IN_CORRECTION',
+      'PUBLISHED'
   ]
 };
 
