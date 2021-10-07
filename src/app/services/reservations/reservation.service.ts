@@ -21,6 +21,10 @@ export class ReservationService {
     return this.http.get<Reservation>(`${this.API_URL}/reservations/${reservationId}`);
   }
 
+  deleteReservationById(reservationId: number) {
+    return this.http.delete(`${this.API_URL}/reservations/${reservationId}/`);
+  }
+
   updateReservation(reservation: Reservation) {
     return this.http.put<Reservation>(`${this.API_URL}/reservations/${reservation.id}/`, reservation);
   }

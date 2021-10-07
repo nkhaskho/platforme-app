@@ -26,8 +26,8 @@ export class ProjectsComponent implements OnInit {
     this.projectIndex = index;
   }
 
-  addNewProject() {
-    this.projectService.addProject(this.newProject).subscribe(
+  async addNewProject() {
+    await this.projectService.addProject(this.newProject).subscribe(
       httpResponse => {
         this.projects.push(httpResponse);
         this.newProject = new Project();

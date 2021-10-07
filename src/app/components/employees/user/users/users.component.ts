@@ -14,13 +14,18 @@ export class UsersComponent implements OnInit {
 
   users: User[] = [];
   user: User = new User();
+  userIndex: number = 0;
   newUser: User = new User();
   projects: Project[] = [];
+  selectedProject: number = 0;
   roles = environment.ROLES;
+  searchedText: string = "";
+  cacheProjects: Record<string, string> = {}
 
-  constructor(private userService: UserService, private projectService: ProjectService) { }
+  constructor(private userService: UserService, 
+              private projectService: ProjectService) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.userService.getAllUsers().subscribe(
       httpResponse => {
         console.log(httpResponse);
@@ -30,19 +35,61 @@ export class UsersComponent implements OnInit {
         console.log(httpError);
       }
     );
-    this.projectService.getAllProjects().subscribe(
+    this.cacheProjects = await this.projectService.getProjectsCache();
+    await this.projectService.getAllProjects().subscribe(
+      data => {
+        this.projects = data
+        this.projects.forEach(proj => this.cacheProjects[proj.id.toString()]=proj.name)
+      }
+    );
+    console.log(this.projects);
+  }
+
+  addEmployee() {
+    this.user = this.newUser;
+  }
+
+  saveEmployee() {
+    console.log(this.user);
+    this.userService.addNewUser(this.user).subscribe(
       httpResponse => {
-        console.log(httpResponse);
-        this.projects = httpResponse;
+        this.users.push(httpResponse);
+        document.getElementById("cancel-add-user")?.click();
       },
       httpError => {
-        console.log(httpError);
+        console.log(httpError)
       }
     )
   }
 
-  save() {
-    console.log(this.user);
+  viewUser(index: number) {
+    this.user = this.users[index];
+  }
+
+  removeUser(index: number) {
+    this.userIndex = index;
+    this.user = this.users[index];
+  }
+
+  deleteUser() {
+    this.userService.deleteUserById(this.user.id).subscribe(
+      response => {
+        this.users.splice(this.userIndex, 1);
+        document.getElementById("cancel-delete-user")?.click();
+      },
+      httpError => console.log(httpError)
+    )
+  }
+
+  search(e: any) {
+    console.log(this.searchedText);
+    //this.users = this.users.filter(user => user.username.includes(this.searchedText));
+  }
+
+  async changeProject(event: any) {
+    await this.userService.getUsersByProject(this.selectedProject).subscribe(
+      httpResponse => this.users = httpResponse
+    )
   }
 
 }

@@ -1,8 +1,8 @@
 <div class="card-body">
     <h5 class="card-title">Employees</h5>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#userModal">
-            <img src="assets/icons/plus.svg" class="app-icon" alt="">Add
+        <button class="btn btn-success" type="button" (click)="addEmployee()" data-bs-toggle="modal" data-bs-target="#userModal">
+            <img src="assets/icons/plus.svg" class="app-icon" alt="">Add employee
         </button>
     </div>
     <br>
@@ -15,24 +15,46 @@
           <thead>
             <tr>
               <th scope="col">Id</th>
-              <th scope="col">Username</th>
               <th scope="col">RN</th>
+              <th scope="col">Username</th>
               <th scope="col">Project</th>
               <th scope="col">Role</th>
               <th scope="col">Action</th>
             </tr>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">
+                <img src="assets/icons/search.svg" class="app-icon" alt="">
+              </th>
+              <th scope="col">
+                <input [(ngModel)]="searchedText" (keypress)="search($event)" class="form-control">
+              </th>
+              <th scope="col">
+                <select class="form-select" [(ngModel)]="selectedProject" (change)="changeProject($event)">
+                  <option class="form-option" *ngFor="let proj of projects" [value]="proj.id">
+                    {{proj.name}}
+                  </option>
+                </select>
+              </th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of users">
+            <tr *ngFor="let user of users, let i=index">
               <th scope="row">{{user.id}}</th>
-              <td>{{user.username}}</td>
               <td>{{user.registration_number}}</td>
-              <td>{{user.project}}</td>
-              <td>{{user.role}}</td>
+              <td>{{user.username}}</td>
+              <td>{{cacheProjects[user.project]}}</td>
               <td>
-                  <img src="assets/icons/eye.svg" class="app-icon" alt="">
+                <span *ngIf="user.role=='PROJECT_MANAGER'" class="badge rounded-pill bg-primary">Manager</span>
+                <span *ngIf="user.role=='TEAM_LEADER'" class="badge rounded-pill bg-info">Leader</span>
+                <span *ngIf="user.role=='TEAM_MEMBER'" class="badge rounded-pill bg-secondary">Member</span>
+              </td>
+              <td>
+                  <img src="assets/icons/eye.svg" (click)="viewUser(i)" data-bs-toggle="modal" data-bs-target="#viewUserModal" class="app-icon" alt="">
                   <img src="assets/icons/pencil-square.svg" routerLink="/users/{{user.id}}" class="app-icon" alt="">
-                  <img src="assets/icons/trash.svg" data-bs-toggle="modal" data-bs-target="#deleteUserModal" class="app-icon" alt="">
+                  <img src="assets/icons/trash.svg" (click)="removeUser(i)" data-bs-toggle="modal" data-bs-target="#deleteUserModal" class="app-icon" alt="">
               </td>
             </tr>
           </tbody>
@@ -47,28 +69,32 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="userModalLabel">Employee</h5>
+        <h5 class="modal-title" id="userModalLabel">Add new Employee</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- -->
         <div class="mb-3">
           <label class="form-label">Email address</label>
-          <input type="email" class="form-control" [(ngModel)]="user.email" placeholder="name@example.com">
+          <input type="email" class="form-control" [(ngModel)]="user.email">
         </div>
         <div class="mb-3">
           <label class="form-label">Username</label>
-          <input type="text" class="form-control" [(ngModel)]="user.username" placeholder="Full Name">
+          <input type="text" class="form-control" [(ngModel)]="user.username">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" [(ngModel)]="user.password">
         </div>
         <div class="mb-3">
           <label class="form-label">Registration number</label>
-          <input type="number" class="form-control" placeholder="658">
+          <input type="number" [(ngModel)]="user.registration_number" class="form-control">
         </div>
         <div class="mb-3">
           <label class="form-label">Role</label>
           <select class="form-select mb-3" [(ngModel)]="user.role">
-            <option *ngFor="let role of roles" value="{{role}}">
-              {{role}}
+            <option *ngFor="let role of roles" value="{{role.name}}">
+              {{role.label}}
             </option>
           </select>
         </div>
@@ -95,13 +121,33 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" (click)="save()" class="btn btn-primary">Save changes</button>
+        <button type="button" id="cancel-add-user" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" (click)="saveEmployee()" class="btn btn-primary">Add employee</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- User Modal -->
+<div class="modal fade" id="viewUserModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userModalLabel">Employee details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- -->
+        <app-user [user]="user"></app-user>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel-add-user" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- delete User Modal -->
 <div class="modal" id="deleteUserModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -113,8 +159,8 @@
         <p>Do you want to remove this user permanetly.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger">Delete</button>
+        <button type="button" id="cancel-delete-user" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" (click)="deleteUser()" class="btn btn-danger">Delete</button>
       </div>
     </div>
   </div>

@@ -22,6 +22,10 @@ import { EditSoftwareComponent } from './components/tools/software/edit-software
 import { EditHardwareComponent } from './components/tools/hardware/edit-hardware/edit-hardware.component';
 import { EditGenericFunctionComponent } from './components/tools/generic-function/edit-generic-function/edit-generic-function.component';
 import { EditReservationComponent } from './components/reservations/edit-reservation/edit-reservation.component';
+import { UserComponent } from './components/employees/user/user/user.component';
+import { HardwareComponent } from './components/tools/hardware/hardware/hardware.component';
+import { SoftwareComponent } from './components/tools/software/software/software.component';
+import { ReservationComponent } from './components/reservations/reservation/reservation.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,11 @@ import { EditReservationComponent } from './components/reservations/edit-reserva
     EditSoftwareComponent,
     EditHardwareComponent,
     EditGenericFunctionComponent,
-    EditReservationComponent
+    EditReservationComponent,
+    UserComponent,
+    HardwareComponent,
+    SoftwareComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,

@@ -20,8 +20,20 @@ export class UserService {
     return this.http.get<User>(`${this.API_URL}/employees/users/${userId}`);
   }
 
-  getUsersByProject(projectId: number) {
-    return this.http.get<User[]>(`${this.API_URL}/employees/users/users?project=${projectId}`);
+  addNewUser(user: User) {
+    return this.http.post<User>(`${this.API_URL}/employees/users/`, user);
+  }
+
+  getUsersByProject(projectId: any) {
+    return this.http.get<User[]>(`${this.API_URL}/employees/users/?project=${projectId}`);
+  }
+
+  deleteUserById(userId: number) {
+    return this.http.delete(`${this.API_URL}/employees/users/${userId}/`);
+  }
+
+  updateUserById(user: User) {
+    return this.http.put<User>(`${this.API_URL}/employees/users/${user.id}/`, user);
   }
 
 }

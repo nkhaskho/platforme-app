@@ -2,7 +2,7 @@
     <h5 class="card-title">Reservations</h5>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#reservationModal">
-            <img src="assets/icons/plus.svg" class="app-icon" alt="">Add
+            <img src="assets/icons/plus.svg" class="app-icon" alt="">New reservation
         </button>
     </div>
     <br>
@@ -23,9 +23,11 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let reservation of reservations">
+              <tr *ngFor="let reservation of reservations, let i=index">
                 <th scope="row">{{reservation.id}}</th>
-                <td>{{reservation.user}}</td>
+                <td>
+                  <a class="button">{{users[reservation.id.toString()]}}</a>
+                </td>
                 <td>{{reservation.start_date | date }}</td>
                 <td>{{reservation.end_date | date }}</td>
                 <td>
@@ -35,9 +37,9 @@
                   <span *ngIf="reservation.status=='REJECTED'" class="badge bg-danger">{{reservation.status}}</span>
                 </td>
                 <td>
-                    <img src="assets/icons/eye.svg" class="app-icon" alt="">
+                    <img src="assets/icons/eye.svg" data-bs-toggle="modal" data-bs-target="#viewReservationModal" (click)="selectReservation(i)" class="app-icon" alt="">
                     <img src="assets/icons/pencil-square.svg" routerLink="/reservations/{{reservation.id}}" class="app-icon" alt="">
-                    <img src="assets/icons/trash.svg" class="app-icon" alt="">
+                    <img src="assets/icons/trash.svg" data-bs-toggle="modal" data-bs-target="#deleteReservationModal" (click)="selectReservation(i)" class="app-icon" alt="">
                 </td>
               </tr>
             </tbody>
@@ -50,14 +52,14 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="reservationModalLabel">Reservation</h5>
+        <h5 class="modal-title" id="reservationModalLabel">New Reservation</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- -->
         <div class="mb-3">
           <label class="form-label">Employee id</label>
-          <input type="email" class="form-control" [(ngModel)]="newReservation.user">
+          <input type="email" class="form-control" [(ngModel)]="newReservation.user" disabled>
         </div>
         <div class="mb-3">
           <label class="form-label">Equipment type</label>
@@ -104,6 +106,44 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" (click)="addNewReservation()" class="btn btn-primary">Add reservation</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Reservation Modal -->
+<div class="modal fade" id="viewReservationModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userModalLabel">Reservation details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- -->
+        <app-reservation [reservation]="reservation"></app-reservation>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel-add-user" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- delete User Modal -->
+<div class="modal" id="deleteReservationModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmation!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Do you want to remove this reservation permanetly.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancel-delete-reservation" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" (click)="deleteReservation()" class="btn btn-danger">Delete</button>
       </div>
     </div>
   </div>

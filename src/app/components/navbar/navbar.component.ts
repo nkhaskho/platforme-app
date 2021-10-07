@@ -50,6 +50,7 @@ export class NavbarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    document.getElementById("menu-button")?.click();
   }
 
 }

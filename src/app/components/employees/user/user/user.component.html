@@ -1,0 +1,22 @@
+<table class="table">
+    <tbody>
+        <tr>
+            <th scope="row">
+                <img src="assets/icons/user.svg" alt="">
+            </th>
+            <td>{{user.username}}</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <img src="assets/icons/email.svg" alt="">
+            </th>
+            <td>{{user.email}}</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                <img src="assets/icons/briefcase.svg" alt="">
+            </th>
+            <td>{{roles[user.role]}} at <strong>{{projects[user.project.toString()]}}</strong></td>
+        </tr>
+    </tbody>
+</table>

@@ -24,8 +24,8 @@
           <div class="mb-3">
             <label class="form-label">Role</label>
             <select class="form-select mb-3" [(ngModel)]="user.role">
-              <option *ngFor="let role of roles" value="{{role}}">
-                {{role}}
+              <option *ngFor="let role of roles" value="{{role.name}}">
+                {{role.label}}
               </option>
             </select>
           </div>

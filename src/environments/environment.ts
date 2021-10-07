@@ -6,9 +6,18 @@ export const environment = {
   production: false,
   API_URL: "http://127.0.0.1:8000/api",
   ROLES: [
-    "PROJECT_MANAGER",
-    "TEAM_LEADER",
-    "TEAM_MEMBER"
+    {
+      name: "TEAM_MEMBER",
+      label: "Team member"
+    },
+    {
+      name: "TEAM_LEADER",
+      label: "Team leader"
+    },
+    {
+      name: "PROJECT_MANAGER",
+      label: "Project manager"
+    },
   ],
   RESERVATIONS_STATUS: [
     "IN_PROGRESS",

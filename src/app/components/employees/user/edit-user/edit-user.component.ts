@@ -39,6 +39,19 @@ export class EditUserComponent implements OnInit {
     );
   }
 
-  saveChange() {}
+  saveChange() {
+    this.userService.updateUserById(this.user).subscribe(
+      httpResponse => {
+        this.user = httpResponse;
+        this.messages.error = ""
+        this.messages.message = `Employee with username: ${this.user.username} updated successfully`;
+      },
+      hhtpError => {
+
+        this.messages.error = "Error while updating employee information."
+        this.messages.message = "";
+      }
+    )
+  }
 
 }

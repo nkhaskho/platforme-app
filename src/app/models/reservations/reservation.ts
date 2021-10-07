@@ -1,5 +1,5 @@
 export class Reservation {
-    id?: number = 0;
+    id: number = 0;
     user: number = 0;
     equipment_type: string = "";
     sw_equipment: number = 0;
