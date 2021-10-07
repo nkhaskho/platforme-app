@@ -33,4 +33,8 @@ export class ReservationService {
     return this.http.get<Reservation[]>(`${this.API_URL}/reservations`);
   }
 
+  getReservationsByAuthor(userId: any) {
+    return this.http.get<Reservation[]>(`${this.API_URL}/reservations/?user=${userId}`);
+  }
+
 }

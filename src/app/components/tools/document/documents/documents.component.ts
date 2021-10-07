@@ -16,6 +16,9 @@ export class DocumentsComponent implements OnInit {
   newDocument: Document = new Document();
   documentTypes = environment.DOCUMENT_TYPES;
   documentStates = environment.DOCUMENT_STATES;
+  userRole = localStorage.getItem("role");
+  userProject = localStorage.getItem("project");
+  loggedUserId = parseInt(localStorage.getItem("userId") || "0");
 
   constructor(private documentService: DocumentService) { }
 
@@ -45,7 +48,12 @@ export class DocumentsComponent implements OnInit {
   }
 
   deleteDocument() {
-    //
+    this.documentService.deleteDocument(this.selectedDocument.id).subscribe(
+      httpResponse => {
+        this.documents.splice(this.selectedIndex, 1);
+        document.getElementById("cancel-delete-document")?.click();
+      }
+    )
   }
 
 }

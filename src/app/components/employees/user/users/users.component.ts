@@ -21,6 +21,8 @@ export class UsersComponent implements OnInit {
   roles = environment.ROLES;
   searchedText: string = "";
   cacheProjects: Record<string, string> = {}
+  userRole: string = localStorage.getItem("role") || "";
+  userProject = parseInt(localStorage.getItem("project") || "0"); 
 
   constructor(private userService: UserService, 
               private projectService: ProjectService) { }
@@ -43,6 +45,11 @@ export class UsersComponent implements OnInit {
       }
     );
     console.log(this.projects);
+    await this.userService.getUserById(localStorage.getItem("userId")).subscribe(
+      response => {
+        console.log(response);
+      }
+    )    
   }
 
   addEmployee() {

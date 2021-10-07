@@ -28,6 +28,24 @@ export class EditHardwareComponent implements OnInit {
     )
   }
 
-  saveChange() {}
+  saveChange() {
+    this.hardwareService.updateHardware(this.hardware).subscribe(
+      data => {
+        this.hardware = data;
+        this.messages = {
+          message: `Hardware "${data.designation}" updated successfully.`,
+          error: ""
+        }
+      },
+      error => {
+        console.log(error);
+        
+        this.messages = {
+          message: ``,
+          error: "Error while updating software"
+        }
+      }
+    )
+  }
 
 }

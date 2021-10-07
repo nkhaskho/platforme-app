@@ -28,6 +28,24 @@ export class EditSoftwareComponent implements OnInit {
     )
   }
 
-  saveChange() {}
+  saveChange() {
+    this.softwareService.UpdateSoftware(this.software).subscribe(
+      data => {
+        this.software = data;
+        this.messages = {
+          message: `Software "${data.designation}" updated successfully.`,
+          error: ""
+        }
+      },
+      error => {
+        console.log(error);
+        
+        this.messages = {
+          message: ``,
+          error: "Error while updating software"
+        }
+      }
+    )
+  }
 
 }

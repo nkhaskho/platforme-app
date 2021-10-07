@@ -23,12 +23,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthService) { }
 
-  ngOnInit(): void {
-    console.log(this.loginForm)
-  }
+  ngOnInit(): void { }
 
   async login() {
-    console.log(this.loginForm);
     await this.authService.authenticate(this.loginForm).subscribe(
       response => {
         this.messages.error = "";

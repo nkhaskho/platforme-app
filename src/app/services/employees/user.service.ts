@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/models/employees/user';
 import { environment } from 'src/environments/environment';
 
@@ -9,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class UserService {
 
   API_URL = environment.API_URL;
+  users: Record<string, string> = {};
 
   constructor(private http: HttpClient) { }
 
@@ -16,7 +18,11 @@ export class UserService {
     return this.http.get<User[]>(`${this.API_URL}/employees/users/`);
   }
 
-  getUserById(userId: number) {
+  getUserByUsername(username: string) {
+    return this.http.get<User[]>(`${this.API_URL}/employees/users/?username=${username}`);
+  }
+
+  getUserById(userId: any) {
     return this.http.get<User>(`${this.API_URL}/employees/users/${userId}`);
   }
 

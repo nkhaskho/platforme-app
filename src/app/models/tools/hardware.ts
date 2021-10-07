@@ -1,5 +1,5 @@
 export class Hardware {
-    id?: number = 0;
+    id: number = 0;
     type: string = "";
     version: string = "";
     designation: string = "";

@@ -25,6 +25,11 @@ export class SoftwareService {
     return this.http.get<Software[]>(`${this.API_URL}`);
   }
 
+  UpdateSoftware(software: Software) {
+    let httpHeader = new HttpHeaders().set("Authorization", `bearer ${localStorage.getItem("access")}`)
+    return this.http.put<Software>(`${this.API_URL}/${software.id}/`, software, {headers: httpHeader});
+  }
+
   deleteSoftware(id: any) {
     return this.http.delete<Software>(`${this.API_URL}/${id}`);
   }

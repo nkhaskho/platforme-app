@@ -1,5 +1,5 @@
 export class Document {
-    id?: number = 0;
+    id: number = 0;
     type: string = "";
     title: string = "";
     author: number = 0;

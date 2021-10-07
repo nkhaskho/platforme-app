@@ -20,12 +20,20 @@ export class DocumentService {
     return this.http.get<Document>(`${this.API_URL}/${documentId}/`);
   }
 
+  getDocumentByAuthor(userId: any) {
+    return this.http.get<Document[]>(`${this.API_URL}/?user=${userId}`);
+  }
+
   updateDocument(document: Document) {
     return this.http.put<Document>(`${this.API_URL}/${document.id}/`, document);
   }
 
   getAllDocuments() {
     return this.http.get<Document[]>(`${this.API_URL}/`);
+  }
+
+  deleteDocument(documentId: any) {
+    return this.http.delete(`${this.API_URL}/${documentId}/`);
   }
 
 }

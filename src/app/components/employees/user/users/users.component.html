@@ -53,8 +53,8 @@
               </td>
               <td>
                   <img src="assets/icons/eye.svg" (click)="viewUser(i)" data-bs-toggle="modal" data-bs-target="#viewUserModal" class="app-icon" alt="">
-                  <img src="assets/icons/pencil-square.svg" routerLink="/users/{{user.id}}" class="app-icon" alt="">
-                  <img src="assets/icons/trash.svg" (click)="removeUser(i)" data-bs-toggle="modal" data-bs-target="#deleteUserModal" class="app-icon" alt="">
+                  <img *ngIf="userRole=='PROJECT_MANAGER' || (userRole=='TEAM_LEADER' && user.project==userProject)" src="assets/icons/pencil-square.svg" routerLink="/users/{{user.id}}" class="app-icon" alt="">
+                  <img *ngIf="userRole=='PROJECT_MANAGER' || (userRole=='TEAM_LEADER' && user.project==userProject)" src="assets/icons/trash.svg" (click)="removeUser(i)" data-bs-toggle="modal" data-bs-target="#deleteUserModal" class="app-icon" alt="">
               </td>
             </tr>
           </tbody>

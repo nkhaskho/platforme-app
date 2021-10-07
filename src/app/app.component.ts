@@ -10,17 +10,16 @@ import { AuthService } from './services/auth/auth.service';
 export class AppComponent implements OnInit {
   
   title = 'platforme-app';
-  loggedUser: string = "";
+  loggedUser = "";
   authenticated: boolean = true;
-  userId: number = 0;
+  userId = "";
 
   constructor(private router: Router, private authService: AuthService) { }
 
   async ngOnInit() {
-    this.loggedUser = await localStorage.getItem("user") || "";
-    this.userId = parseInt(localStorage.getItem("id") || "0");
+    this.loggedUser = localStorage.getItem("user") || "";
+    this.userId = localStorage.getItem("userId") || "";
     if (this.loggedUser.length>0) {
-      console.log(this.loggedUser);
       this.authenticated = true;
       this.router.navigate(['home']);
     } else {

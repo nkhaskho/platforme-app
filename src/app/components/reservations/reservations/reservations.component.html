@@ -1,51 +1,54 @@
 <div class="card-body">
-    <h5 class="card-title">Reservations</h5>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#reservationModal">
-            <img src="assets/icons/plus.svg" class="app-icon" alt="">New reservation
-        </button>
+  <h5 class="card-title">Reservations</h5>
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#reservationModal">
+      <img src="assets/icons/plus.svg" class="app-icon" alt="">New reservation
+    </button>
+  </div>
+  <br>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Reservations List</h5>
+      <!-- -->
+      <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">User</th>
+            <th scope="col">Start date</th>
+            <th scope="col">End date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reservation of reservations, let i=index">
+            <th scope="row">{{reservation.id}}</th>
+            <td>
+              <a class="button">{{users[reservation.user.toString()]}}</a>
+            </td>
+            <td>{{reservation.start_date | date }}</td>
+            <td>{{reservation.end_date | date }}</td>
+            <td>
+              <span *ngIf="reservation.status=='IN_PROGRESS'" class="badge bg-secondary">{{reservation.status}}</span>
+              <span *ngIf="reservation.status=='VALIDATED'" class="badge bg-success">{{reservation.status}}</span>
+              <span *ngIf="reservation.status=='POSTPONED'" class="badge bg-warning">{{reservation.status}}</span>
+              <span *ngIf="reservation.status=='REJECTED'" class="badge bg-danger">{{reservation.status}}</span>
+            </td>
+            <td>
+              <img src="assets/icons/eye.svg" data-bs-toggle="modal" data-bs-target="#viewReservationModal"
+                (click)="selectReservation(i)" class="app-icon" alt="">
+              <img src="assets/icons/pencil-square.svg" routerLink="/reservations/{{reservation.id}}" class="app-icon"
+                alt="">
+              <img src="assets/icons/trash.svg" data-bs-toggle="modal" data-bs-target="#deleteReservationModal"
+                (click)="selectReservation(i)" class="app-icon" alt="">
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <br>
-    <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Reservations List</h5>
-          <!-- -->
-          <br>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">User</th>
-                <th scope="col">Start date</th>
-                <th scope="col">End date</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let reservation of reservations, let i=index">
-                <th scope="row">{{reservation.id}}</th>
-                <td>
-                  <a class="button">{{users[reservation.id.toString()]}}</a>
-                </td>
-                <td>{{reservation.start_date | date }}</td>
-                <td>{{reservation.end_date | date }}</td>
-                <td>
-                  <span *ngIf="reservation.status=='IN_PROGRESS'" class="badge bg-secondary">{{reservation.status}}</span>
-                  <span *ngIf="reservation.status=='VALIDATED'" class="badge bg-success">{{reservation.status}}</span>
-                  <span *ngIf="reservation.status=='POSTPONED'" class="badge bg-warning">{{reservation.status}}</span>
-                  <span *ngIf="reservation.status=='REJECTED'" class="badge bg-danger">{{reservation.status}}</span>
-                </td>
-                <td>
-                    <img src="assets/icons/eye.svg" data-bs-toggle="modal" data-bs-target="#viewReservationModal" (click)="selectReservation(i)" class="app-icon" alt="">
-                    <img src="assets/icons/pencil-square.svg" routerLink="/reservations/{{reservation.id}}" class="app-icon" alt="">
-                    <img src="assets/icons/trash.svg" data-bs-toggle="modal" data-bs-target="#deleteReservationModal" (click)="selectReservation(i)" class="app-icon" alt="">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-    </div>
+  </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel" aria-hidden="true">
@@ -63,26 +66,26 @@
         </div>
         <div class="mb-3">
           <label class="form-label">Equipment type</label>
-          <select class="form-select mb-3" [(ngModel)]="newReservation.equipment_type">
-              <option *ngFor="let type of types" [ngValue]="type.abbreviation">
-                {{type.designation}}
-              </option>
+          <select class="form-select mb-3" [(ngModel)]="newReservation.equipment_type" disabled>
+            <option *ngFor="let type of types" [ngValue]="type.abbreviation">
+              {{type.designation}}
+            </option>
           </select>
         </div>
         <div *ngIf="newReservation.equipment_type=='HW'" class="mb-3">
           <label class="form-label">Hardware Equipment</label>
           <select class="form-select mb-3" [(ngModel)]="newReservation.hw_equipment">
-              <option *ngFor="let hardware of hardwares" [ngValue]="hardware.id">
-                {{hardware.designation}}
-              </option>
+            <option *ngFor="let hardware of hardwares" [ngValue]="hardware.id">
+              {{hardware.designation}}
+            </option>
           </select>
         </div>
         <div *ngIf="newReservation.equipment_type=='SW'" class="mb-3">
           <label class="form-label">Software Equipment</label>
-          <select class="form-select mb-3" [(ngModel)]="newReservation.hw_equipment">
-              <option *ngFor="let software of softwares" [ngValue]="software.id">
-                {{software.designation}}
-              </option>
+          <select class="form-select mb-3" [(ngModel)]="newReservation.sw_equipment">
+            <option *ngFor="let software of softwares" [ngValue]="software.id">
+              {{software.designation}}
+            </option>
           </select>
         </div>
         <div class="mb-3">
@@ -104,7 +107,7 @@
         <br>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" id="cancel-add-reservation" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" (click)="addNewReservation()" class="btn btn-primary">Add reservation</button>
       </div>
     </div>
@@ -142,7 +145,8 @@
         <p>Do you want to remove this reservation permanetly.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" id="cancel-delete-reservation" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" id="cancel-delete-reservation" class="btn btn-secondary"
+          data-bs-dismiss="modal">Cancel</button>
         <button type="button" (click)="deleteReservation()" class="btn btn-danger">Delete</button>
       </div>
     </div>

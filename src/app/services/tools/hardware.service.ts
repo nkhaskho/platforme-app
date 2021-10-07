@@ -24,4 +24,8 @@ export class HardwareService {
     return this.http.get<Hardware[]>(`${this.API_URL}`);
   }
 
+  updateHardware(hardware: Hardware) {
+    return this.http.put<Hardware>(`${this.API_URL}/${hardware.id}/`, hardware);
+  }
+
 }

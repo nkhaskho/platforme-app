@@ -58,6 +58,7 @@ export class ReservationsComponent implements OnInit {
   initNewReservation() {
     this.newReservation = new Reservation();
     this.newReservation.user = parseInt(localStorage.getItem("userId") || "1");
+    this.newReservation.equipment_type = "HW";
     this.newReservation.status = "IN_PROGRESS"
   }
 
@@ -66,6 +67,7 @@ export class ReservationsComponent implements OnInit {
     this.reservationService.addReservation(this.newReservation).subscribe(
       data => {
         this.reservations.push(data);
+        document.getElementById("cancel-add-reservation")?.click();
         this.initNewReservation();
       },
       error => console.log(error)
@@ -77,6 +79,10 @@ export class ReservationsComponent implements OnInit {
       response => {
         this.reservations.splice(this.reservationIndex, 1);
         document.getElementById("cancel-delete-reservation")?.click();
+      },
+      error => {
+        console.log(error);
+        
       }
     )
   }

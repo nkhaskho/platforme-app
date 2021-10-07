@@ -36,8 +36,8 @@
                 </td>
                 <td>
                     <img src="assets/icons/eye.svg" (click)="selectDocument(i)" data-bs-toggle="modal" data-bs-target="#viewDocumentModal" class="app-icon" alt="">
-                    <img src="assets/icons/pencil-square.svg" routerLink="/documents/{{doc.id}}" class="app-icon" alt="">
-                    <img src="assets/icons/trash.svg" (click)="selectDocument(i)" data-bs-toggle="modal" data-bs-target="#deleteDocumentModal" class="app-icon" alt="">
+                    <img *ngIf="doc.author==loggedUserId && doc.status!='IN_CORRECTION'" src="assets/icons/pencil-square.svg" routerLink="/documents/{{doc.id}}" class="app-icon" alt="">
+                    <img *ngIf="doc.author==loggedUserId" src="assets/icons/trash.svg" (click)="selectDocument(i)" data-bs-toggle="modal" data-bs-target="#deleteDocumentModal" class="app-icon" alt="">
                 </td>
               </tr>
             </tbody>
