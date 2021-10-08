@@ -4,7 +4,7 @@
 <br>
   <div class="row">
     <div class="col-md-3">
-      <app-navbar *ngIf="authenticated" (loginEmitter)="newUser($event)"></app-navbar>
+      <app-navbar *ngIf="authenticated"></app-navbar>
     </div>
     <div class="col-md-9">
       <div class="row" *ngIf="authenticated">
@@ -29,6 +29,7 @@
         </div>      
       </div><br>
       <div class="row">
+        <app-login *ngIf="!authenticated" (loginEmitter)="newUser($event)"></app-login>
         <router-outlet></router-outlet>
       </div>
     </div>

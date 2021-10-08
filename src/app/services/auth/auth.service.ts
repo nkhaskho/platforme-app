@@ -26,10 +26,10 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.API_URL}/auth/`, loginForm);
   }
 
-  async newLoggedUser(username: string, accessToken: string) {
+  newLoggedUser(username: string, accessToken: string) {
     localStorage.setItem("user", username);
     let user = new User(); 
-    await this.userService.getUserByUsername(username).subscribe(
+    this.userService.getUserByUsername(username).subscribe(
       res => {
         localStorage.setItem("userId", res[0].id.toString());
         localStorage.setItem("project", res[0].project.toString());
@@ -38,9 +38,6 @@ export class AuthService {
         this.changeLoggedUser(username);
       }
     )
-    //user = this.userService.getUserByUsername(username).then(res => user = res.)
-    
-    
   }
 
   logOutUser() {

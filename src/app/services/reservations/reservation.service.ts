@@ -33,7 +33,9 @@ export class ReservationService {
     return this.http.get<Reservation[]>(`${this.API_URL}/reservations`);
   }
 
-  getReservationsByAuthor(userId: any) {
+  getReservationsByAuthor() {
+    let userId = localStorage.getItem("userId");
+    console.log("reservation for user ", userId);
     return this.http.get<Reservation[]>(`${this.API_URL}/reservations/?user=${userId}`);
   }
 

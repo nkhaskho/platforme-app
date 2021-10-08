@@ -5,7 +5,6 @@ import { EditProjectComponent } from './components/employees/project/edit-projec
 import { ProjectsComponent } from './components/employees/project/projects/projects.component';
 import { EditUserComponent } from './components/employees/user/edit-user/edit-user.component';
 import { UsersComponent } from './components/employees/user/users/users.component';
-import { LoginComponent } from './components/login/login.component';
 import { EditReservationComponent } from './components/reservations/edit-reservation/edit-reservation.component';
 import { ReservationsComponent } from './components/reservations/reservations/reservations.component';
 import { DocumentsComponent } from './components/tools/document/documents/documents.component';
@@ -18,10 +17,6 @@ import { EditSoftwareComponent } from './components/tools/software/edit-software
 import { SoftwaresComponent } from './components/tools/software/softwares/softwares.component';
 
 const routes: Routes = [
-  {
-    path: "login",
-    component: LoginComponent
-  },
   {
     path: "home",
     component: DashboardComponent

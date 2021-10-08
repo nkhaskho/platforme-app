@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
     this.loggedUser = localStorage.getItem("userId");
     console.log(this.loggedUser);
     // get reservations by author
-    await this.reservationService.getReservationsByAuthor(this.loggedUser).subscribe(
+    await this.reservationService.getReservationsByAuthor().subscribe(
       response => {
         this.myReservations = response
       }

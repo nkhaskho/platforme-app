@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class LoginComponent implements OnInit {
 
   loginForm = new LoginForm(); 
-  @Output() loginEmitter = new EventEmitter();
+  @Output() loginEmitter: EventEmitter<string> = new EventEmitter<string>();
   errors = {
     username: "",
     password: ""
@@ -29,8 +29,8 @@ export class LoginComponent implements OnInit {
     await this.authService.authenticate(this.loginForm).subscribe(
       response => {
         this.messages.error = "";
-        this.authService.newLoggedUser(this.loginForm.username, response.access);
         this.loginEmitter.emit(this.loginForm.username);
+        this.authService.newLoggedUser(this.loginForm.username, response.access);
         this.router.navigate(['home'])
       },
       httpError => {

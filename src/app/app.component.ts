@@ -19,6 +19,8 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
     this.loggedUser = localStorage.getItem("user") || "";
     this.userId = localStorage.getItem("userId") || "";
+    console.log("on init, user=", this.loggedUser);
+    console.log("on init, id=", this.userId);
     if (this.loggedUser.length>0) {
       this.authenticated = true;
       this.router.navigate(['home']);
@@ -31,8 +33,8 @@ export class AppComponent implements OnInit {
     }
   }
   
-  newUser(event: Event) {
-    console.log(event)
+  newUser(event: any) {
+    console.log("from login: ", event)
     this.authenticated = true;
   }
 
@@ -41,6 +43,6 @@ export class AppComponent implements OnInit {
     this.authService.logOutUser();
     this.loggedUser = "";
     this.authenticated = false;
-    this.router.navigate(['login']);
+    this.router.navigate(['']);
   }
 }
