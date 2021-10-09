@@ -18,7 +18,8 @@ export class DashboardComponent implements OnInit {
 
   loggedUser = localStorage.getItem("user");
   loggedUserId = parseInt(localStorage.getItem("userId") || "0");
-  myReservations: Reservation[] = []
+  myReservations: Reservation[] = [];
+  genFunctions: GenericFunction[] = [];
   hardwares: Record<string,string> = {}
   userDocuments: Document[] = [];
   userFunctions: GenericFunction[] = [];
@@ -32,7 +33,7 @@ export class DashboardComponent implements OnInit {
     this.loggedUser = localStorage.getItem("userId");
     console.log(this.loggedUser);
     // get reservations by author
-    await this.reservationService.getReservationsByAuthor().subscribe(
+    await this.reservationService.getAllReservations().subscribe(
       response => {
         this.myReservations = response
       }
@@ -46,6 +47,10 @@ export class DashboardComponent implements OnInit {
     // get contributions by author
     await this.documentService.getDocumentByAuthor(localStorage.getItem("userId")).subscribe(
       docs => this.userDocuments = docs
+    )
+    // get functions by author
+    await this.gFunctionService.getAllGenFunctions().subscribe(
+      response => this.genFunctions = response
     )
     
   }

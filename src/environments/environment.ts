@@ -51,6 +51,14 @@ export const environment = {
       'IN_PROOFREADING',
       'IN_CORRECTION',
       'PUBLISHED'
+  ],
+  LANGUAGES: [
+      'C',
+      'C++',
+      'C#',
+      'JAVA',
+      'RUBY',
+      'GOLANG'
   ]
 };
 

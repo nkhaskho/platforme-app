@@ -4,6 +4,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { EditProjectComponent } from './components/employees/project/edit-project/edit-project.component';
 import { ProjectsComponent } from './components/employees/project/projects/projects.component';
 import { EditUserComponent } from './components/employees/user/edit-user/edit-user.component';
+import { UserComponent } from './components/employees/user/user/user.component';
 import { UsersComponent } from './components/employees/user/users/users.component';
 import { EditReservationComponent } from './components/reservations/edit-reservation/edit-reservation.component';
 import { ReservationsComponent } from './components/reservations/reservations/reservations.component';
@@ -23,6 +24,10 @@ const routes: Routes = [
   },
   {
     path: "users/:id",
+    component: UserComponent
+  },
+  {
+    path: "users/edit/:id",
     component: EditUserComponent
   },
   {

@@ -1,22 +1,58 @@
-<table class="table">
-    <tbody>
-        <tr>
-            <th scope="row">
-                <img src="assets/icons/user.svg" alt="">
-            </th>
-            <td>{{user.username}}</td>
-        </tr>
-        <tr>
-            <th scope="row">
-                <img src="assets/icons/email.svg" alt="">
-            </th>
-            <td>{{user.email}}</td>
-        </tr>
-        <tr>
-            <th scope="row">
-                <img src="assets/icons/briefcase.svg" alt="">
-            </th>
-            <td>{{roles[user.role]}} at <strong>{{projects[user.project.toString()]}}</strong></td>
-        </tr>
-    </tbody>
-</table>
+<div class="col-md-5 offset-1">
+    <div class="card-title">
+        <h5>{{user.username}}</h5>
+    </div>
+    <br>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">
+                    Id
+                </th>
+                <td>{{user.id}}</td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Username
+                </th>
+                <td class="text-primary"><strong>{{user.username}}</strong></td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Project
+                </th>
+                <td>{{projects[user.project]}}</td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Role
+                </th>
+                <td>
+                    <span *ngIf="user.role=='PROJECT_MANAGER'"
+                        class="badge rounded-pill bg-primary">{{user.role}}</span>
+                    <span *ngIf="user.role=='TEAM_MEMBER'" class="badge rounded-pill bg-secondary">{{user.role}}</span>
+                    <span *ngIf="user.role=='TEAM_LEADER'" class="badge rounded-pill bg-warning">{{user.role}}</span>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">
+                    Link
+                </th>
+                <td><a routerLink="users/{{user.id}}">{{user.email}}</a></td>
+            </tr>
+
+            <tr>
+                <th scope="row">
+                    Joined
+                </th>
+                <td>{{user.created_at | date}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="(user.project==loggedUserProject && loggedUserRole=='TEAM_LEADER') || loggedUserRole=='PROJECT_MANAGER'" class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="btn btn-primary" routerLink="/users/edit/{{user.id}}" type="button">
+            <img src="assets/icons/plus.svg" class="app-icon" alt="">Edit User details
+          </button>
+    </div>
+</div>
+<div class="col-md-5"></div>

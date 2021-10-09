@@ -1,7 +1,5 @@
-
 <div class="container">
-
-<br>
+  <br>
   <div class="row">
     <div class="col-md-3">
       <app-navbar *ngIf="authenticated"></app-navbar>
@@ -16,21 +14,35 @@
           <!-- Example split danger button -->
           <div class="btn-group">
             <button type="button" class="btn btn-light"></button>
-            <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+            <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"
+              aria-expanded="false">
               <img src="assets/icons/user.svg" class="app-icon" alt="">
               {{loggedUser}}
             </button>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" routerLink="/users/{{userId}}">Profile</a></li>
-              <li><hr class="dropdown-divider"></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
               <li><a class="dropdown-item" (click)="signOut()">Sign out</a></li>
             </ul>
           </div>
-        </div>      
+        </div>
       </div><br>
       <div class="row">
-        <app-login *ngIf="!authenticated" (loginEmitter)="newUser($event)"></app-login>
         <router-outlet></router-outlet>
+      </div>
+      <div *ngIf="!authenticated" class="row">
+        <div class="col-md-5">
+          <br><br>
+          <img src="assets/img/logo-actia.png" class="login-image" width="300" height="100" alt="">
+          <div class="text-right">
+            <strong>ENGINEERING SERVICES</strong>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <app-login (loginEmitter)="newUser($event)"></app-login>
+        </div>
       </div>
     </div>
   </div>

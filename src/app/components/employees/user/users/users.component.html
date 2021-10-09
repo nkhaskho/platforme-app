@@ -1,7 +1,7 @@
 <div class="card-body">
     <h5 class="card-title">Employees</h5>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="btn btn-success" type="button" (click)="addEmployee()" data-bs-toggle="modal" data-bs-target="#userModal">
+        <button *ngIf="userRole=='PROJECT_MANAGER' || userRole=='TEAM_LEADER'" class="btn btn-success" type="button" (click)="addEmployee()" data-bs-toggle="modal" data-bs-target="#userModal">
             <img src="assets/icons/plus.svg" class="app-icon" alt="">Add employee
         </button>
     </div>
@@ -44,7 +44,9 @@
             <tr *ngFor="let user of users, let i=index">
               <th scope="row">{{user.id}}</th>
               <td>{{user.registration_number}}</td>
-              <td>{{user.username}}</td>
+              <td>
+                <a class="button">{{user.username}}</a>
+              </td>
               <td>{{cacheProjects[user.project]}}</td>
               <td>
                 <span *ngIf="user.role=='PROJECT_MANAGER'" class="badge rounded-pill bg-primary">Manager</span>

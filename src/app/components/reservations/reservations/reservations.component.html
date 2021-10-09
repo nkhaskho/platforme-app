@@ -39,9 +39,9 @@
             <td>
               <img src="assets/icons/eye.svg" data-bs-toggle="modal" data-bs-target="#viewReservationModal"
                 (click)="selectReservation(i)" class="app-icon" alt="">
-              <img src="assets/icons/pencil-square.svg" routerLink="/reservations/{{reservation.id}}" class="app-icon"
+              <img *ngIf="(reservation.user==loggedUserId) || loggedUserRole=='PROJECT_MANAGER'" src="assets/icons/pencil-square.svg" routerLink="/reservations/{{reservation.id}}" class="app-icon"
                 alt="">
-              <img src="assets/icons/trash.svg" data-bs-toggle="modal" data-bs-target="#deleteReservationModal"
+              <img *ngIf="(reservation.user==loggedUserId) || loggedUserRole=='PROJECT_MANAGER'" src="assets/icons/trash.svg" data-bs-toggle="modal" data-bs-target="#deleteReservationModal"
                 (click)="selectReservation(i)" class="app-icon" alt="">
             </td>
           </tr>
@@ -60,10 +60,10 @@
       </div>
       <div class="modal-body">
         <!-- -->
-        <div class="mb-3">
-          <label class="form-label">Employee id</label>
-          <input type="email" class="form-control" [(ngModel)]="newReservation.user" disabled>
-        </div>
+            <div class="mb-3">
+              <label class="form-label">Employee</label>
+              <input type="text" class="form-control" [value]="users[newReservation.user]" disabled>
+            </div>
         <div class="mb-3">
           <label class="form-label">Equipment type</label>
           <select class="form-select mb-3" [(ngModel)]="newReservation.equipment_type" disabled>

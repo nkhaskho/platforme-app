@@ -24,6 +24,8 @@ export class ReservationsComponent implements OnInit {
   hardwares: Hardware[] = [];
   softwares: Software[] = [];
   users: Record<string, string> = {};
+  loggedUserId: number = 0;
+  loggedUserRole: string = "TEAM_MEMBER";
 
   constructor(private reservationService: ReservationService,
               private softwareService: SoftwareService,
@@ -48,6 +50,8 @@ export class ReservationsComponent implements OnInit {
       }
     );
     console.log(this.users);
+    this.loggedUserId = parseInt(localStorage.getItem("userId") || "2");
+    this.loggedUserRole = localStorage.getItem("role") || "TEAM_MEMBER";
   }
 
   selectReservation(index: number) {

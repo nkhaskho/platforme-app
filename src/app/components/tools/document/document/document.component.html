@@ -1,1 +1,49 @@
-<p>document works!</p>
+<table class="table">
+    <tbody>
+        <tr>
+            <th scope="row">
+                Title
+            </th>
+            <td class="text-primary"><strong>{{document.title}}</strong></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Author
+            </th>
+            <td>{{document.author}}</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Type
+            </th>
+            <td>{{document.type}}</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Link
+            </th>
+            <td><a routerLink="{{document.link}}">{{document.link}}</a></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Status
+            </th>
+            <td>
+                <span *ngIf="document.status=='DRAFT'"
+                    class="badge rounded-pill bg-secondary">{{document.status}}</span>
+                <span *ngIf="document.status=='IN_CORRECTION'"
+                    class="badge rounded-pill bg-danger">{{document.status}}</span>
+                <span *ngIf="document.status=='PUBLISHED'"
+                    class="badge rounded-pill bg-success">{{document.status}}</span>
+                <span *ngIf="document.status=='IN_PROOFREADING'"
+                    class="badge rounded-pill bg-warning">{{document.status}}</span>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Last update
+            </th>
+            <td>{{document.updated_at | date}}</td>
+        </tr>
+    </tbody>
+</table>

@@ -20,6 +20,10 @@ export class HardwareService {
     return this.http.get<Hardware>(`${this.API_URL}/${id}/`);
   }
 
+  deleteHardwareById(id: any) {
+    return this.http.delete(`${this.API_URL}/${id}/`);
+  }
+
   getAllHardwares() {
     return this.http.get<Hardware[]>(`${this.API_URL}`);
   }

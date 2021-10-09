@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { GenericFunction } from 'src/app/models/tools/generic-function';
 
 @Component({
   selector: 'app-generic-function',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./generic-function.component.scss']
 })
 export class GenericFunctionComponent implements OnInit {
+
+  @Input()
+  genFunction: GenericFunction = new GenericFunction();
 
   constructor() { }
 

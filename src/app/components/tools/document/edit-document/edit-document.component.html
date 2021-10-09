@@ -1,63 +1,62 @@
-
-
-
 <div class="card">
-    <div class="card-body">
-        <h5 class="card-title">
-            <a routerLink="/documents">Documents</a> > {{document.title}}
-        </h5>
+  <div class="card-body">
+    <h5 class="card-title">
+      <a routerLink="/documents">Documents</a> > {{document.title}}
+    </h5>
+    <br>
+    <div class="row">
+      <div class="col-md-5 offset-1">
+        <div class="mb-3">
+          <label class="form-label">Author</label>
+          <input type="text" class="form-control" [value]="documentAuthor.username" disabled>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Title</label>
+          <input type="text" class="form-control" [(ngModel)]="document.title">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Type</label>
+          <select class="form-select mb-3" [(ngModel)]="document.type">
+            <option *ngFor="let docType of documentTypes" value="{{docType}}">
+              {{docType}}
+            </option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Link</label>
+          <input type="text" class="form-control" [(ngModel)]="document.link">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Status</label>
+          <select class="form-select mb-3" [(ngModel)]="document.status">
+            <option *ngFor="let docState of documentStates" value="{{docState}}">
+              {{docState}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-5">
+
+
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
         <br>
-        <div class="row">
-          <div class="col-md-1"></div>
-          <div class="col-md-5">
-            <div class="mb-3">
-                <label class="form-label">Title</label>
-                <input type="text" class="form-control" [(ngModel)]="document.title">
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Type</label>
-                <select class="form-select mb-3" [(ngModel)]="document.type">
-                    <option *ngFor="let docType of documentTypes" value="{{docType}}">
-                      {{docType}}
-                    </option>
-                  </select>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Link</label>
-                <input type="text" class="form-control" [(ngModel)]="document.link">
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Type</label>
-                <select class="form-select mb-3" [(ngModel)]="document.status">
-                    <option *ngFor="let docState of documentStates" value="{{docState}}">
-                      {{docState}}
-                    </option>
-                  </select>
-              </div>
+        <div *ngIf="messages.message.length>0" class="alert alert-success" role="alert">
+          {{messages.message}}
         </div>
-            <div class="col-md-5">
-                
-
+        <div *ngIf="messages.error.length>0" class="alert alert-warning" role="alert">
+          {{messages.error}}
         </div>
-
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btn btn-primary" type="button" (click)="saveChange()">
+            <img src="assets/icons/pencil-square.svg" class="app-icon" alt="">Save changes
+          </button>
         </div>
-        <div class="row">
-          <div class="col-md-1"></div>
-          <div class="col-md-10">
-            <br>
-            <div *ngIf="messages.message.length>0" class="alert alert-success" role="alert">
-              {{messages.message}}
-            </div>
-            <div *ngIf="messages.error.length>0" class="alert alert-warning" role="alert">
-              {{messages.error}}
-            </div>
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button class="btn btn-primary" type="button" (click)="saveChange()">
-                  <img src="assets/icons/pencil-square.svg" class="app-icon" alt="">Save changes
-              </button>
-            </div>
-          </div>
-        </div>
+      </div>
     </div>
   </div>
-  
+</div>

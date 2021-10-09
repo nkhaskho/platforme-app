@@ -1,1 +1,72 @@
-<p>edit-generic-function works!</p>
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">
+        <a routerLink="/generic-functions">Generic Functions</a> > {{genFunction.title}}
+      </h5>
+      <br>
+      <div class="row">
+        <div class="col-md-5 offset-1">
+            <div class="mb-3">
+              <label class="form-label">Author</label>
+              <input type="text" class="form-control" [value]="functionAuthor.username" disabled>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Project</label>
+              <input type="text" class="form-control" [value]="projects[genFunction.project.toString()]" disabled>
+            </div>
+          <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input type="text" class="form-control" [(ngModel)]="genFunction.title">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Language</label>
+            <select class="form-select mb-3" [(ngModel)]="genFunction.language">
+              <option *ngFor="let language of languages" value="{{language}}">
+                {{language}}
+              </option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea type="text" class="form-control" [(ngModel)]="genFunction.description"></textarea>
+          </div>
+        </div>
+        <div class="col-md-5">
+            <div class="mb-3">
+              <label class="form-label">Status</label>
+              <select class="form-select mb-3" [(ngModel)]="genFunction.status">
+                <option *ngFor="let docState of documentStates" value="{{docState}}">
+                  {{docState}}
+                </option>
+              </select>
+            </div>
+          <div class="mb-3">
+            <label class="form-label">Link</label>
+            <input type="text" class="form-control" [(ngModel)]="genFunction.link">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Keywords</label>
+            <textarea type="text" class="form-control" [(ngModel)]="genFunction.keywords"></textarea>
+          </div>
+        </div>
+  
+      </div>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+          <br>
+          <div *ngIf="messages.message.length>0" class="alert alert-success" role="alert">
+            {{messages.message}}
+          </div>
+          <div *ngIf="messages.error.length>0" class="alert alert-warning" role="alert">
+            {{messages.error}}
+          </div>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-primary" type="button" (click)="saveChange()">
+              <img src="assets/icons/pencil-square.svg" class="app-icon" alt="">Save changes
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

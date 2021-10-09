@@ -1,47 +1,46 @@
 <div class="card-body">
-    <h5 class="card-title">Dashboard</h5>
-    <br>
-    <div class="card">
-        <div class="card-body">
-          <!-- -->
-          <h4 class="text-primary">My reservations</h4>
-          <div *ngIf="false" class="d-flex justify-content-center">
-            <div class="spinner-border" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-          <div class="row">
-            <div *ngFor="let reserv of myReservations" class="card app-card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title">{{hardwares[reserv.hw_equipment.toString()]}}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">
-                  <span *ngIf="reserv.status=='IN_PROGRESS'" class="badge bg-secondary">{{reserv.status}}</span>
-                  <span *ngIf="reserv.status=='POSTPONED'" class="badge bg-warning">{{reserv.status}}</span>
-                  <span *ngIf="reserv.status=='VALIDATED'" class="badge bg-success">{{reserv.status}}</span>
-                  <span *ngIf="reserv.status=='REJECTED'" class="badge bg-danger">{{reserv.status}}</span>
-                </h6>
-                
-                <p *ngIf="reserv.status=='VALIDATED'" class="card-text"><small>{{15}} hours left</small></p>
-                <div *ngIf="reserv.status=='VALIDATED'" class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br><br>
-
-          <h4 class="text-primary">My contributions</h4>
-          <br>
-          <h5>{{userDocuments.length}} documents </h5>
-          <ul class="list-group list-group-flush">
-            <li *ngFor="let doc of userDocuments" class="list-group-item">{{doc.title}}</li>
-            <li class="list-group-item"></li>
-          </ul><br>
-          <h5>{{userFunctions.length}} generic functions </h5>
-          <ul class="list-group list-group-flush">
-            <li *ngFor="let func of userFunctions" class="list-group-item">{{func.title}}</li>
-            <li class="list-group-item"></li>
-          </ul>
+  <h5 class="card-title">Dashboard</h5>
+  <br>
+  <div class="card">
+    <div class="card-body">
+      <!-- -->
+      <h4 class="text-primary">My reservations</h4>
+      <div *ngIf="false" class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
       </div>
+      <div class="row">
+        <div *ngFor="let reserv of myReservations" class="card app-card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{hardwares[reserv.hw_equipment.toString()]}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">
+              <span *ngIf="reserv.status=='IN_PROGRESS'" class="badge bg-secondary">{{reserv.status}}</span>
+              <span *ngIf="reserv.status=='POSTPONED'" class="badge bg-warning">{{reserv.status}}</span>
+              <span *ngIf="reserv.status=='VALIDATED'" class="badge bg-success">{{reserv.status}}</span>
+              <span *ngIf="reserv.status=='REJECTED'" class="badge bg-danger">{{reserv.status}}</span>
+            </h6>
+            <p *ngIf="reserv.status=='VALIDATED'" class="card-text"><small>{{15}} hours left</small></p>
+            <div *ngIf="reserv.status=='VALIDATED'" class="progress">
+              <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br>
+      <h4 class="text-primary">My contributions</h4>
+      <br>
+      <h5>{{userDocuments.length}} documents </h5>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let doc of userDocuments" class="list-group-item">{{doc.title}}</li>
+        <li class="list-group-item"></li>
+      </ul><br>
+      <h5>{{userFunctions.length}} generic functions </h5>
+      <ul class="list-group list-group-flush">
+        <li *ngFor="let func of userFunctions" class="list-group-item">{{func.title}}</li>
+        <li class="list-group-item"></li>
+      </ul>
+    </div>
   </div>
+</div>

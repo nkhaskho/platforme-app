@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Reservation } from 'src/app/models/reservations/reservation';
 import { UserService } from 'src/app/services/employees/user.service';
+import { HardwareService } from 'src/app/services/tools/hardware.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -18,8 +19,10 @@ export class ReservationComponent implements OnInit {
   }
   reservationStates = environment.RESERVATIONS_STATUS;
   users: Record<string,string> = {};
+  hardwares: Record<string,string> = {};
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+              private hardwareService: HardwareService) { }
 
   async ngOnInit() {
     console.log(this.reservation);
@@ -29,6 +32,11 @@ export class ReservationComponent implements OnInit {
         users.forEach(user => this.users[user.id]=user.username)
       }
     );
+    await this.hardwareService.getAllHardwares().subscribe(
+      hws => {
+        hws.forEach(hw => this.hardwares[hw.id.toString()]=hw.designation)
+      }
+    )
   }
 
 }

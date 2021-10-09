@@ -1,1 +1,49 @@
-<p>hardware works!</p>
+<table class="table">
+    <tbody>
+        <tr>
+            <th scope="row">
+                Title
+            </th>
+            <td class="text-primary"><strong>{{hardware.designation}}</strong></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Description
+            </th>
+            <td>{{hardware.description}}</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Version
+            </th>
+            <td>{{hardware.version}}</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Comptability
+            </th>
+            <td>{{hardware.comptability}}</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Status
+            </th>
+            <td>
+                <span *ngIf="hardware.status=='OBSOLETE'"
+                    class="badge rounded-pill bg-secondary">{{hardware.status}}</span>
+                <span *ngIf="hardware.status=='UNRELIABLE'"
+                    class="badge rounded-pill bg-danger">{{hardware.status}}</span>
+                <span *ngIf="hardware.status=='AVAILABLE'"
+                    class="badge rounded-pill bg-success">{{hardware.status}}</span>
+                <span *ngIf="hardware.status=='UNDER_REPAIR'"
+                    class="badge rounded-pill bg-warning">{{hardware.status}}</span>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Drivers
+            </th>
+            <td>{{hardware.drivers}}</td>
+        </tr>
+    </tbody>
+</table>

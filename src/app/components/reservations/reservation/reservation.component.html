@@ -2,28 +2,50 @@
     <tbody>
         <tr>
             <th scope="row">
-                <img src="assets/icons/user.svg" alt="">
-                Requester
+                Id
+            </th>
+            <td class="text-primary"><strong>{{reservation.id}}</strong></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Equipment
+            </th>
+            <td>{{hardwares[reservation.hw_equipment]}}</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Employee
             </th>
             <td>
-                <a class="button">{{users[reservation.id.toString()]}}</a>
+                <a class="link">{{users[reservation.user]}}</a>
             </td>
-            <td></td>
         </tr>
         <tr>
             <th scope="row">
-                <img src="assets/icons/email.svg" alt="">
+                Created at
+            </th>
+            <td>{{reservation.created_at | date}}</td>
+        </tr>
+        <tr>
+            <th scope="row">
                 Status
             </th>
-            <td>{{reservation.status}}</td>
-            <td></td>
+            <td>
+                <span *ngIf="reservation.status=='IN_PROGRESS'"
+                    class="badge rounded-pill bg-secondary">{{reservation.status}}</span>
+                <span *ngIf="reservation.status=='REJECTED'"
+                    class="badge rounded-pill bg-danger">{{reservation.status}}</span>
+                <span *ngIf="reservation.status=='VALIDATED'"
+                    class="badge rounded-pill bg-success">{{reservation.status}}</span>
+                <span *ngIf="reservation.status=='POSTPONED'"
+                    class="badge rounded-pill bg-warning">{{reservation.status}}</span>
+            </td>
         </tr>
         <tr>
             <th scope="row">
-                <img src="assets/icons/briefcase.svg" alt="">
+                Start date
             </th>
-            <td></td>
-            <td></td>
+            <td>{{reservation.start_date | date}}</td>
         </tr>
     </tbody>
 </table>

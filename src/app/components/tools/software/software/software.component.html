@@ -1,1 +1,49 @@
-<p>software works!</p>
+<table class="table">
+    <tbody>
+        <tr>
+            <th scope="row">
+                Title
+            </th>
+            <td class="text-primary"><strong>{{software.designation}}</strong></td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Description
+            </th>
+            <td>{{software.description}}</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Version
+            </th>
+            <td>{{software.version}}</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                QA Reference
+            </th>
+            <td>{{software.qa_reference}}</td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Status
+            </th>
+            <td>
+                <span *ngIf="software.status=='OBSOLETE'"
+                    class="badge rounded-pill bg-secondary">{{software.status}}</span>
+                <span *ngIf="software.status=='UNRELIABLE'"
+                    class="badge rounded-pill bg-danger">{{software.status}}</span>
+                <span *ngIf="software.status=='AVAILABLE'"
+                    class="badge rounded-pill bg-success">{{software.status}}</span>
+                <span *ngIf="software.status=='UNDER_REPAIR'"
+                    class="badge rounded-pill bg-warning">{{software.status}}</span>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row">
+                Buy date
+            </th>
+            <td>{{software.buy_date| date}}</td>
+        </tr>
+    </tbody>
+</table>

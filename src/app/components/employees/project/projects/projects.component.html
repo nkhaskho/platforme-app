@@ -1,7 +1,7 @@
 <div class="card-body">
   <h5 class="card-title">Projects</h5>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-      <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#projectModal">
+      <button *ngIf="loggedUserRole=='PROJECT_MANAGER' || loggedUserRole=='TEAM_LEADER'" class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#projectModal">
           <img src="assets/icons/plus.svg" class="app-icon" alt="">Add project
       </button>
   </div>
@@ -25,8 +25,8 @@
               <td>{{project.name}}</td>
               <td>
                   <img src="assets/icons/eye.svg" class="app-icon" alt="">
-                  <img src="assets/icons/pencil-square.svg" routerLink="/projects/{{project.id}}" class="app-icon" alt="">
-                  <img src="assets/icons/trash.svg" (click)="selectProjectIndex(i)" data-bs-toggle="modal" data-bs-target="#deleteProjectModal" type="button" class="app-icon" alt="">
+                  <img *ngIf="project.id==loggedUserProject && loggedUserRole=='PROJECT_MANAGER'" src="assets/icons/pencil-square.svg" routerLink="/projects/{{project.id}}" class="app-icon" alt="">
+                  <img *ngIf="project.id==loggedUserProject && loggedUserRole=='PROJECT_MANAGER'" src="assets/icons/trash.svg"  (click)="selectProjectIndex(i)" data-bs-toggle="modal" data-bs-target="#deleteProjectModal" type="button" class="app-icon" alt="">
               </td>
             </tr>
           </tbody>

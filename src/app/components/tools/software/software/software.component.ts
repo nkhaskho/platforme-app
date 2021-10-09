@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Software } from 'src/app/models/tools/software';
 
 @Component({
   selector: 'app-software',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SoftwareComponent implements OnInit {
 
+  @Input()
+  software: Software = new Software();
+
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.software)
   }
 
 }

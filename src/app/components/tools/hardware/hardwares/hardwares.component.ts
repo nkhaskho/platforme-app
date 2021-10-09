@@ -12,8 +12,11 @@ export class HardwaresComponent implements OnInit {
 
   hardwares: Hardware[] = []
   newHardware: Hardware = new Hardware();
+  selectedHardware: Hardware = new Hardware();
   status = environment.EQUIPMENT_STATUS;
+  selectedHardwareIndex: number = 0;
   types = environment.EQUIPMENTS_TYPES;
+  loggedUserRole: string = "";
 
   constructor(private hardwareService: HardwareService) { }
 
@@ -23,14 +26,37 @@ export class HardwaresComponent implements OnInit {
       httpError => console.log(httpError)
     );
     this.newHardware.type = "HW";
+    this.loggedUserRole = localStorage.getItem("role") || "TEAM_MEMBER";
+  }
+
+  selectHardware(index: number): void {
+    this.selectedHardwareIndex = index;
+    this.selectedHardware = this.hardwares[index];
   }
 
   addHardware() {
-    // TODO: 
+    this.hardwareService.addHardware(this.newHardware).subscribe(
+      response => {
+        this.hardwares.push(response)
+        this.newHardware = new Hardware();
+        document.getElementById("cancel-add-hardware")?.click();
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
   deleteHardware() {
-    // TODO: 
+    this.hardwareService.deleteHardwareById(this.selectedHardware.id).subscribe(
+      response => {
+        this.hardwares.splice(this.selectedHardwareIndex, 1);
+        document.getElementById("cancel-delete-hardware")?.click();
+      },
+      error => {
+        console.log(error)
+      }
+    ) 
   }
 
 }

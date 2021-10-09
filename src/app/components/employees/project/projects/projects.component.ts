@@ -12,6 +12,8 @@ export class ProjectsComponent implements OnInit {
   projects: Project[] = [];
   newProject: Project = new Project();
   projectIndex: number = 0;
+  loggedUserRole: string = "TEAM_MEMBER";
+  loggedUserProject: number = 1;
 
   constructor(private projectService: ProjectService) { }
 
@@ -19,7 +21,9 @@ export class ProjectsComponent implements OnInit {
     this.projectService.getAllProjects().subscribe(
       httpResponse => this.projects = httpResponse,
       httpError => console.log(httpError)
-    )
+    );
+    this.loggedUserRole = localStorage.getItem("role") || "";
+    this.loggedUserProject = parseInt(localStorage.getItem("project") || "0");
   }
 
   selectProjectIndex(index: number) {

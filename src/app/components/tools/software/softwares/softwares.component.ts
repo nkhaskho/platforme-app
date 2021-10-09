@@ -12,9 +12,11 @@ export class SoftwaresComponent implements OnInit {
 
   softwares: Software[] = []
   newSoftware: Software = new Software();
+  selectedSoftware: Software = new Software();
   status = environment.EQUIPMENT_STATUS;
   types = environment.EQUIPMENTS_TYPES;
   softwareIndex: number = 0;
+  loggedUserRole: string = "TEAM_MEMBER";
 
   constructor(private softwareService: SoftwareService) { }
 
@@ -26,7 +28,9 @@ export class SoftwaresComponent implements OnInit {
     this.newSoftware.type = "SW";
     let todayDate = new Date();
     this.newSoftware.buy_date = todayDate.toISOString().split("T")[0];
+    this.loggedUserRole = localStorage.getItem("role") || "TEAM_MEMBER";
   }
+
 
   addSoftware() {
     console.log(this.newSoftware);
@@ -43,6 +47,7 @@ export class SoftwaresComponent implements OnInit {
 
   selectSoftware(index: number) {
     this.softwareIndex = index;
+    this.selectedSoftware = this.softwares[index];
   }
 
   deleteSoftware() {
