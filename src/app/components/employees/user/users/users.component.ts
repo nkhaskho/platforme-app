@@ -41,12 +41,6 @@ export class UsersComponent implements OnInit {
       }
     );
     this.cacheProjects = await this.projectService.getProjectsCache();
-    await this.projectService.getAllProjects().subscribe(
-      data => {
-        this.projects = data
-        this.projects.forEach(proj => this.cacheProjects[proj.id.toString()]=proj.name)
-      }
-    );
     console.log(this.projects);    
     this.loggedUser = await this.authService.getLoggedUser();  
   }
