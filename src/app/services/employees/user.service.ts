@@ -18,6 +18,17 @@ export class UserService {
     return this.http.get<User[]>(`${this.API_URL}/employees/users/`);
   }
 
+  async getUsersObject(): Promise<Record<string,string>> {
+    await this.getAllUsers().subscribe(
+      response => {
+        response.forEach(user => this.users[user.id.toString()]=user.username);
+        localStorage.setItem("users", JSON.stringify(this.users))
+        return JSON.parse(localStorage.getItem("users") || "{}")
+      }
+    )
+    return JSON.parse("{}");
+  }
+
   getUserByUsername(username: string) {
     return this.http.get<User[]>(`${this.API_URL}/employees/users/?username=${username}`);
   }

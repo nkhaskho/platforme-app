@@ -1,5 +1,9 @@
 <div class="card">
     <div class="card-body">
+        <div class="text-center">
+            <img src="assets/img/logo-actia.png" class="login-image" width="300" height="100" alt="">
+            <strong>ENGINEERING SERVICES</strong>
+        </div>
         <br>
         <h3>Login</h3>
         <br>
@@ -22,9 +26,9 @@
             <input type="checkbox" class="form-check-input" [(ngModel)]="loginForm.rememberMe">
             <label class="form-check-label">Remember me</label>
         </div>
-        <div class="d-grid gap-2 d-md-block">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
             <button class="btn btn-success" (click)="login()" type="button">Sign in</button>
-        </div>
+          </div>
         <br>
     </div>
 </div>

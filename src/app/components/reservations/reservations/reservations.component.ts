@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { LoggedUser } from 'src/app/models/auth/logged-user';
+import { User } from 'src/app/models/employees/user';
 import { Reservation } from 'src/app/models/reservations/reservation';
 import { Hardware } from 'src/app/models/tools/hardware';
 import { Software } from 'src/app/models/tools/software';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/employees/user.service';
 import { ReservationService } from 'src/app/services/reservations/reservation.service';
 import { HardwareService } from 'src/app/services/tools/hardware.service';
@@ -17,6 +20,8 @@ export class ReservationsComponent implements OnInit {
 
   status = environment.RESERVATIONS_STATUS;
   types = environment.EQUIPMENTS_TYPES;
+  appStorage = localStorage;
+  reservationAuthor: User = new User();
   reservations: Reservation[] = [];
   reservation: Reservation = new Reservation();
   reservationIndex: number = 0;
@@ -24,13 +29,14 @@ export class ReservationsComponent implements OnInit {
   hardwares: Hardware[] = [];
   softwares: Software[] = [];
   users: Record<string, string> = {};
-  loggedUserId: number = 0;
-  loggedUserRole: string = "TEAM_MEMBER";
+  loggedUser: LoggedUser = new LoggedUser();
+  errors: Record<string,string> = {};
 
   constructor(private reservationService: ReservationService,
               private softwareService: SoftwareService,
               private hardwareService: HardwareService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private authService: AuthService) { }
 
   async ngOnInit() {
     await this.reservationService.getAllReservations().subscribe(
@@ -50,11 +56,16 @@ export class ReservationsComponent implements OnInit {
       }
     );
     console.log(this.users);
-    this.loggedUserId = parseInt(localStorage.getItem("userId") || "2");
-    this.loggedUserRole = localStorage.getItem("role") || "TEAM_MEMBER";
+    this.loggedUser = await this.authService.getLoggedUser();
+    this.newReservation.status = "IN_PROGRESS";
+    console.log(this.loggedUser);
+    
   }
 
-  selectReservation(index: number) {
+  async selectReservation(index: number) {
+    await this.userService.getUserById(this.reservations[index].user).subscribe(
+      user => this.reservationAuthor = user
+    );
     this.reservation = this.reservations[index];
     this.reservationIndex = index;
   }
@@ -67,6 +78,7 @@ export class ReservationsComponent implements OnInit {
   }
 
   addNewReservation() {
+    this.errors = {}
     console.log(this.newReservation);
     this.reservationService.addReservation(this.newReservation).subscribe(
       data => {
@@ -74,7 +86,7 @@ export class ReservationsComponent implements OnInit {
         document.getElementById("cancel-add-reservation")?.click();
         this.initNewReservation();
       },
-      error => console.log(error)
+      httpError => Object.keys(httpError.error).forEach(key => this.errors[key]=httpError.error[key])
     )
   }
 

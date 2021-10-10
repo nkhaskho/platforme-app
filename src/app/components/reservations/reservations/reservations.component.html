@@ -39,9 +39,9 @@
             <td>
               <img src="assets/icons/eye.svg" data-bs-toggle="modal" data-bs-target="#viewReservationModal"
                 (click)="selectReservation(i)" class="app-icon" alt="">
-              <img *ngIf="(reservation.user==loggedUserId) || loggedUserRole=='PROJECT_MANAGER'" src="assets/icons/pencil-square.svg" routerLink="/reservations/{{reservation.id}}" class="app-icon"
+              <img *ngIf="(reservation.user==loggedUser.id) || loggedUser.role=='PROJECT_MANAGER' || (loggedUser.project==reservationAuthor.project && loggedUser.role=='TEAM_LEADER')" src="assets/icons/pencil-square.svg" routerLink="/reservations/{{reservation.id}}" class="app-icon"
                 alt="">
-              <img *ngIf="(reservation.user==loggedUserId) || loggedUserRole=='PROJECT_MANAGER'" src="assets/icons/trash.svg" data-bs-toggle="modal" data-bs-target="#deleteReservationModal"
+              <img *ngIf="(reservation.user==loggedUser.id) || loggedUser.role=='PROJECT_MANAGER' || (loggedUser.project==reservationAuthor.project && loggedUser.role=='TEAM_LEADER')" src="assets/icons/trash.svg" data-bs-toggle="modal" data-bs-target="#deleteReservationModal"
                 (click)="selectReservation(i)" class="app-icon" alt="">
             </td>
           </tr>
@@ -71,6 +71,7 @@
               {{type.designation}}
             </option>
           </select>
+          <div class="form-text text-danger" *ngIf="errors['equipment_type']">{{errors['equipment_type']}}</div>
         </div>
         <div *ngIf="newReservation.equipment_type=='HW'" class="mb-3">
           <label class="form-label">Hardware Equipment</label>
@@ -79,26 +80,21 @@
               {{hardware.designation}}
             </option>
           </select>
-        </div>
-        <div *ngIf="newReservation.equipment_type=='SW'" class="mb-3">
-          <label class="form-label">Software Equipment</label>
-          <select class="form-select mb-3" [(ngModel)]="newReservation.sw_equipment">
-            <option *ngFor="let software of softwares" [ngValue]="software.id">
-              {{software.designation}}
-            </option>
-          </select>
+          <div class="form-text text-danger" *ngIf="errors['hw_equipment']">{{errors['hw_equipment']}}</div>
         </div>
         <div class="mb-3">
           <label class="form-label">Start date</label>
           <input type="datetime-local" class="form-control" [(ngModel)]="newReservation.start_date">
         </div>
+        <div class="form-text text-danger" *ngIf="errors['start_date']">{{errors['start_date']}}</div>
         <div class="mb-3">
           <label class="form-label">End date</label>
           <input type="datetime-local" class="form-control" [(ngModel)]="newReservation.end_date">
         </div>
+        <div class="form-text text-danger" *ngIf="errors['end_date']">{{errors['end_date']}}</div>
         <div class="mb-3">
           <label class="form-label">Status</label>
-          <select class="form-select mb-3" [(ngModel)]="newReservation.status">
+          <select class="form-select mb-3" [value]="newReservation.status" disabled>
             <option *ngFor="let state of status" value="{{state}}">
               {{state}}
             </option>

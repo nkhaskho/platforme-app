@@ -1,7 +1,7 @@
 <div class="card-body">
     <h5 class="card-title">Employees</h5>
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button *ngIf="userRole=='PROJECT_MANAGER' || userRole=='TEAM_LEADER'" class="btn btn-success" type="button" (click)="addEmployee()" data-bs-toggle="modal" data-bs-target="#userModal">
+        <button *ngIf="loggedUser.role=='PROJECT_MANAGER' || loggedUser.role=='TEAM_LEADER'" class="btn btn-success" type="button" (click)="addEmployee()" data-bs-toggle="modal" data-bs-target="#userModal">
             <img src="assets/icons/plus.svg" class="app-icon" alt="">Add employee
         </button>
     </div>
@@ -55,8 +55,8 @@
               </td>
               <td>
                   <img src="assets/icons/eye.svg" (click)="viewUser(i)" data-bs-toggle="modal" data-bs-target="#viewUserModal" class="app-icon" alt="">
-                  <img *ngIf="userRole=='PROJECT_MANAGER' || (userRole=='TEAM_LEADER' && user.project==userProject)" src="assets/icons/pencil-square.svg" routerLink="/users/{{user.id}}" class="app-icon" alt="">
-                  <img *ngIf="userRole=='PROJECT_MANAGER' || (userRole=='TEAM_LEADER' && user.project==userProject)" src="assets/icons/trash.svg" (click)="removeUser(i)" data-bs-toggle="modal" data-bs-target="#deleteUserModal" class="app-icon" alt="">
+                  <img *ngIf="loggedUser.role=='PROJECT_MANAGER' || (loggedUser.role=='TEAM_LEADER' && user.project==loggedUser.project)" src="assets/icons/pencil-square.svg" routerLink="/users/edit/{{user.id}}" class="app-icon" alt="">
+                  <img *ngIf="loggedUser.role=='PROJECT_MANAGER' || (loggedUser.role=='TEAM_LEADER' && user.project==loggedUser.project)" src="assets/icons/trash.svg" (click)="removeUser(i)" data-bs-toggle="modal" data-bs-target="#deleteUserModal" class="app-icon" alt="">
               </td>
             </tr>
           </tbody>
@@ -68,7 +68,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-md">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="userModalLabel">Add new Employee</h5>
@@ -76,51 +76,65 @@
       </div>
       <div class="modal-body">
         <!-- -->
-        <div class="mb-3">
-          <label class="form-label">Email address</label>
-          <input type="email" class="form-control" [(ngModel)]="user.email">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Username</label>
-          <input type="text" class="form-control" [(ngModel)]="user.username">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Password</label>
-          <input type="password" class="form-control" [(ngModel)]="user.password">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Registration number</label>
-          <input type="number" [(ngModel)]="user.registration_number" class="form-control">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Role</label>
-          <select class="form-select mb-3" [(ngModel)]="user.role">
-            <option *ngFor="let role of roles" value="{{role.name}}">
-              {{role.label}}
-            </option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Project</label>
-          <select class="form-select mb-3" [(ngModel)]="user.project">
-            <option *ngFor="let project of projects" value="{{project.id}}">
-              {{project.name}}
-            </option>
-          </select>
+        <div class="row">
+          <div class="col-md-5 offset-1">
+            <div class="mb-3">
+              <label class="form-label">Email address</label>
+              <input type="email" class="form-control" [(ngModel)]="user.email">
+              <div class="form-text text-danger" *ngIf="errors['email']">{{errors['email']}}</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Username</label>
+              <input type="text" class="form-control" [(ngModel)]="user.username">
+              <div class="form-text text-danger" *ngIf="errors['username']">{{errors['username']}}</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <input type="password" class="form-control" [(ngModel)]="user.password">
+              <div class="form-text text-danger" *ngIf="errors['password']">{{errors['password']}}</div>
+            </div>     
+            
+              <div class="mb-3">
+              <label class="form-label">Registration number</label>
+              <input type="number" [(ngModel)]="user.registration_number" class="form-control">
+              <div class="form-text text-danger" *ngIf="errors['registration_number']">{{errors['registration_number']}}</div>
+            </div>       
+          </div>
+          <div class="col-md-5">
+            <div class="mb-3">
+              <label class="form-label">Role</label>
+              <select class="form-select mb-3" [(ngModel)]="user.role">
+                <option *ngFor="let role of roles" value="{{role.name}}">
+                  {{role.label}}
+                </option>
+              </select>
+              <div class="form-text text-danger" *ngIf="errors['role']">{{errors['role']}}</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Project</label>
+              <select class="form-select mb-3" [(ngModel)]="user.project">
+                <option *ngFor="let project of projects" value="{{project.id}}">
+                  {{project.name}}
+                </option>
+              </select>
+              <div class="form-text text-danger" *ngIf="errors['project']">{{errors['project']}}</div>
+            </div>
+            <div class="form-check form-switch form-check-inline">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="user.is_active">
+              <label class="form-check-label">Active</label>
+            </div>
+            <div class="form-check form-switch form-check-inline">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="user.is_staff">
+              <label class="form-check-label">Staff</label>
+            </div>
+            <div class="form-check form-switch form-check-inline">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="user.is_superuser">
+              <label class="form-check-label">Super user</label>
+            </div>
+          </div>
         </div>
         <br>
-        <div class="form-check form-switch form-check-inline">
-          <input class="form-check-input" type="checkbox" [(ngModel)]="user.is_active">
-          <label class="form-check-label">Active</label>
-        </div>
-        <div class="form-check form-switch form-check-inline">
-          <input class="form-check-input" type="checkbox" [(ngModel)]="user.is_staff">
-          <label class="form-check-label">Staff</label>
-        </div>
-        <div class="form-check form-switch form-check-inline">
-          <input class="form-check-input" type="checkbox" [(ngModel)]="user.is_superuser">
-          <label class="form-check-label">Super user</label>
-        </div>
+        
       </div>
       <div class="modal-footer">
         <button type="button" id="cancel-add-user" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -21,9 +21,9 @@ export class ProjectService {
         response.forEach(project => {
           this.projects[project.id.toString()] = project.name
         });
+        localStorage.setItem("projects", JSON.stringify(this.projects));
       }
     );
-    localStorage.setItem("projects", JSON.stringify(this.projects));
   }
 
 

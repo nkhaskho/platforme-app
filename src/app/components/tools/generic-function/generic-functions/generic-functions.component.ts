@@ -20,6 +20,7 @@ export class GenericFunctionsComponent implements OnInit {
   documentStates = environment.DOCUMENT_STATES;
   users: Record<string,string> = {}
   projects: Record<string,string> = {}
+  errors: Record<string,string> = {};
 
   constructor(private genFunctionService: GenericFunctionService,
               private userService: UserService) { }
@@ -39,8 +40,8 @@ export class GenericFunctionsComponent implements OnInit {
     await this.userService.getAllUsers().subscribe(
       response => response.forEach(user => this.users[user.id.toString()]=user.username)
     );
-    this.projects = JSON.parse(localStorage.getItem("projects") || "{}");
-    this.newGenFunction.project = parseInt(localStorage.getItem("project") || "0");
+    this.projects = await JSON.parse(localStorage.getItem("projects") || "{}");
+    this.newGenFunction.project = await parseInt(localStorage.getItem("project") || "0");
     this.newGenFunction.author = parseInt(localStorage.getItem("userId") || "0");
     console.log(this.projects);
     
@@ -51,6 +52,7 @@ export class GenericFunctionsComponent implements OnInit {
   }
 
   addnewGenFunction() {
+    this.errors = {};
     console.log(this.newGenFunction);
     this.genFunctionService.addGenFunction(this.newGenFunction).subscribe(
       response => {
@@ -58,8 +60,8 @@ export class GenericFunctionsComponent implements OnInit {
         document.getElementById("cancel-add-genfunction")?.click();
         this.newGenFunction = new GenericFunction();
       },
-      error => {
-        console.log(error);
+      httpError => {
+        Object.keys(httpError.error).forEach(key => this.errors[key]=httpError.error[key]);
       }
     )
   }

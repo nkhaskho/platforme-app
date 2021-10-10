@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { LoggedUser } from 'src/app/models/auth/logged-user';
 import { Project } from 'src/app/models/employees/project';
 import { User } from 'src/app/models/employees/user';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { ProjectService } from 'src/app/services/employees/project.service';
 import { UserService } from 'src/app/services/employees/user.service';
 import { environment } from 'src/environments/environment';
@@ -21,11 +23,12 @@ export class UsersComponent implements OnInit {
   roles = environment.ROLES;
   searchedText: string = "";
   cacheProjects: Record<string, string> = {}
-  userRole: string = localStorage.getItem("role") || "";
-  userProject = parseInt(localStorage.getItem("project") || "0"); 
+  loggedUser: LoggedUser = new LoggedUser();
+  errors: Record<string,string> = {};
 
   constructor(private userService: UserService, 
-              private projectService: ProjectService) { }
+              private projectService: ProjectService,
+              private authService: AuthService) { }
 
   async ngOnInit() {
     this.userService.getAllUsers().subscribe(
@@ -44,12 +47,8 @@ export class UsersComponent implements OnInit {
         this.projects.forEach(proj => this.cacheProjects[proj.id.toString()]=proj.name)
       }
     );
-    console.log(this.projects);
-    await this.userService.getUserById(localStorage.getItem("userId")).subscribe(
-      response => {
-        console.log(response);
-      }
-    )    
+    console.log(this.projects);    
+    this.loggedUser = await this.authService.getLoggedUser();  
   }
 
   addEmployee() {
@@ -57,14 +56,14 @@ export class UsersComponent implements OnInit {
   }
 
   saveEmployee() {
-    console.log(this.user);
+    this.errors = {}
     this.userService.addNewUser(this.user).subscribe(
       httpResponse => {
         this.users.push(httpResponse);
         document.getElementById("cancel-add-user")?.click();
       },
       httpError => {
-        console.log(httpError)
+        Object.keys(httpError.error).forEach(key => this.errors[key]=httpError.error[key]);
       }
     )
   }

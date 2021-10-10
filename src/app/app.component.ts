@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   
   title = 'platforme-app';
   loggedUser = "";
+  appStorage = localStorage;
   authenticated: boolean = true;
   userId = "";
 

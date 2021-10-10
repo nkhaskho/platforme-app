@@ -74,11 +74,13 @@
             </div>
             <div class="mb-3">
               <label class="form-label">Project</label>
-              <input type="text" class="form-control" [value]="projects[newGenFunction.project]" disabled>
+              <input type="text" class="form-control" [value]="projects[newGenFunction.project.toString()]" disabled>
+              <div class="form-text text-danger" *ngIf="errors['project']">{{errors['project']}}</div>
             </div>
             <div class="mb-3">
               <label class="form-label">Title</label>
               <input type="text" class="form-control" [(ngModel)]="newGenFunction.title">
+              <div class="form-text text-danger" *ngIf="errors['title']">{{errors['title']}}</div>
             </div>
             <div class="mb-3">
               <label class="form-label">Language</label>
@@ -87,23 +89,27 @@
                   {{language}}
                 </option>
               </select>
+              <div class="form-text text-danger" *ngIf="errors['language']">{{errors['language']}}</div>
             </div>
             <div class="mb-3">
               <label class="form-label">Description</label>
               <textarea type="text" rows="2" class="form-control" [(ngModel)]="newGenFunction.description">
-                    </textarea>
+              </textarea>
+              <div class="form-text text-danger" *ngIf="errors['description']">{{errors['description']}}</div>
             </div>
           </div>
           <div class="col-md-4" offset="1">
             <div class="mb-3">
               <label class="form-label">Keywords</label>
               <textarea type="text" rows="2" class="form-control" [(ngModel)]="newGenFunction.keywords">
-                        {{users[newGenFunction.author.toString()]}}
-                    </textarea>
+                {{users[newGenFunction.author.toString()]}}
+              </textarea>
+              <div class="form-text text-danger" *ngIf="errors['keywords']">{{errors['keywords']}}</div>
             </div>
             <div class="mb-3">
               <label class="form-label">Link</label>
               <input type="text" class="form-control" [(ngModel)]="newGenFunction.link">
+              <div class="form-text text-danger" *ngIf="errors['link']">{{errors['link']}}</div>
             </div>
             <div class="mb-3">
               <label class="form-label">Status</label>
@@ -112,6 +118,7 @@
                   {{state}}
                 </option>
               </select>
+              <div class="form-text text-danger" *ngIf="errors['status']">{{errors['status']}}</div>
             </div>
           </div>
         </div>

@@ -21,7 +21,7 @@ export class DocumentService {
   }
 
   getDocumentByAuthor(userId: any) {
-    return this.http.get<Document[]>(`${this.API_URL}/?user=${userId}`);
+    return this.http.get<Document[]>(`${this.API_URL}/?author=${userId}`);
   }
 
   updateDocument(document: Document) {

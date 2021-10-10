@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { LoggedUser } from 'src/app/models/auth/logged-user';
 import { Document } from 'src/app/models/tools/document';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/employees/user.service';
 import { DocumentService } from 'src/app/services/tools/document.service';
 import { environment } from 'src/environments/environment';
@@ -17,13 +19,13 @@ export class DocumentsComponent implements OnInit {
   newDocument: Document = new Document();
   documentTypes = environment.DOCUMENT_TYPES;
   documentStates = environment.DOCUMENT_STATES;
-  userRole = localStorage.getItem("role");
-  userProject = localStorage.getItem("project");
-  loggedUserId = parseInt(localStorage.getItem("userId") || "0");
+  loggedUser: LoggedUser = new LoggedUser();
   users: Record<string, string> = {};
+  errors: Record<string,string> = {}
 
   constructor(private documentService: DocumentService,
-              private userService: UserService) { }
+              private userService: UserService,
+              private authService: AuthService) { }
 
   async ngOnInit() {
     await this.documentService.getAllDocuments().subscribe(
@@ -31,12 +33,14 @@ export class DocumentsComponent implements OnInit {
     );
     this.newDocument.author = parseInt(localStorage.getItem("userId") || "0");
     this.newDocument.updated_by = this.newDocument.author;
+    this.newDocument.status = "DRAFT";
     await this.userService.getAllUsers().subscribe(
       users => {
         console.log(users)
         users.forEach(user => this.users[user.id]=user.username)
       }
     );
+    this.loggedUser = await this.authService.getLoggedUser();
   }
 
   selectDocument(index: number) {
@@ -45,13 +49,14 @@ export class DocumentsComponent implements OnInit {
   }
 
   addNewDocument() {
+    this.errors = {};
     this.documentService.addDocument(this.newDocument).subscribe(
       data => {
         this.documents.push(data);
         document.getElementById("cancel-add-document")?.click();
       },
       httpError => {
-        console.log(httpError);
+        Object.keys(httpError.error).forEach(key => this.errors[key]=httpError.error[key])
       }
     )
   }

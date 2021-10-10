@@ -28,6 +28,10 @@ export class GenericFunctionService {
     return this.http.get<GenericFunction[]>(`${this.API_URL}/`);
   }
 
+  getGenFunctionsByAuthor(userId: any) {
+    return this.http.get<GenericFunction[]>(`${this.API_URL}/?author=${userId}`);
+  }
+
   deleteGenFunction(gFunctionId: any) {
     return this.http.delete(`${this.API_URL}/${gFunctionId}/`);
   }

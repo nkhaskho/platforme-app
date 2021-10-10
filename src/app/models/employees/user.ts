@@ -4,7 +4,7 @@ export class User {
     password?: string = "";
     email: string = "";
     registration_number: number = 0;
-    role: string = "USER";
+    role: string = "TEAM_MEMBER";
     project: number = 0;
     is_active: boolean = false;
     is_staff?: boolean = false;

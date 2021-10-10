@@ -39,9 +39,9 @@
             <td>
               <img src="assets/icons/eye.svg" (click)="selectDocument(i)" data-bs-toggle="modal"
                 data-bs-target="#viewDocumentModal" class="app-icon" alt="">
-              <img *ngIf="doc.author==loggedUserId && doc.status!='IN_CORRECTION'" src="assets/icons/pencil-square.svg"
+              <img *ngIf="doc.author==loggedUser.id && doc.status!='IN_CORRECTION' || (loggedUser.role=='TEAM_LEADER' || loggedUser.role=='TEAM_LEADER')" src="assets/icons/pencil-square.svg"
                 routerLink="/documents/{{doc.id}}" class="app-icon" alt="">
-              <img *ngIf="doc.author==loggedUserId" src="assets/icons/trash.svg" (click)="selectDocument(i)"
+              <img *ngIf="doc.author==loggedUser.id || (loggedUser.role=='TEAM_LEADER' || loggedUser.role=='TEAM_LEADER')" src="assets/icons/trash.svg" (click)="selectDocument(i)"
                 data-bs-toggle="modal" data-bs-target="#deleteDocumentModal" class="app-icon" alt="">
             </td>
           </tr>
@@ -65,11 +65,12 @@
         <!-- -->
         <div class="mb-3">
           <label class="form-label">Author</label>
-          <input type="text" class="form-control" [value]="users[loggedUserId]" disabled>
+          <input type="text" class="form-control" [value]="users[loggedUser.id]" disabled>
         </div>
         <div class="mb-3">
           <label class="form-label">Title</label>
           <input type="text" class="form-control" [(ngModel)]="newDocument.title">
+          <div class="form-text text-danger" *ngIf="errors['title']">{{errors['title']}}</div>
         </div>
         <div class="mb-3">
           <label class="form-label">Type</label>
@@ -78,10 +79,12 @@
               {{docType}}
             </option>
           </select>
+          <div class="form-text text-danger" *ngIf="errors['type']">{{errors['type']}}</div>
         </div>
         <div class="mb-3">
           <label class="form-label">Link</label>
           <input type="text" class="form-control" [(ngModel)]="newDocument.link">
+          <div class="form-text text-danger" *ngIf="errors['link']">{{errors['link']}}</div>
         </div>
         <div class="mb-3">
           <label class="form-label">Type</label>

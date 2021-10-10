@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { LoggedUser } from 'src/app/models/auth/logged-user';
 import { Reservation } from 'src/app/models/reservations/reservation';
 import { Document } from 'src/app/models/tools/document';
 import { GenericFunction } from 'src/app/models/tools/generic-function';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/employees/user.service';
 import { ReservationService } from 'src/app/services/reservations/reservation.service';
 import { DocumentService } from 'src/app/services/tools/document.service';
@@ -16,8 +18,7 @@ import { SoftwareService } from 'src/app/services/tools/software.service';
 })
 export class DashboardComponent implements OnInit {
 
-  loggedUser = localStorage.getItem("user");
-  loggedUserId = parseInt(localStorage.getItem("userId") || "0");
+  loggedUser: LoggedUser = new LoggedUser();
   myReservations: Reservation[] = [];
   genFunctions: GenericFunction[] = [];
   hardwares: Record<string,string> = {}
@@ -27,13 +28,14 @@ export class DashboardComponent implements OnInit {
   constructor(private reservationService: ReservationService,
               private hardwareService: HardwareService,
               private gFunctionService: GenericFunctionService,
-              private documentService: DocumentService,) { }
+              private documentService: DocumentService,
+              private authService: AuthService) { }
 
   async ngOnInit() {
-    this.loggedUser = localStorage.getItem("userId");
-    console.log(this.loggedUser);
     // get reservations by author
-    await this.reservationService.getAllReservations().subscribe(
+    this.loggedUser = await this.authService.getLoggedUser();
+    console.log("loggedUser: ", this.loggedUser)
+    await this.reservationService.getReservationsByAuthor(this.loggedUser.id).subscribe(
       response => {
         this.myReservations = response
       }
@@ -45,13 +47,17 @@ export class DashboardComponent implements OnInit {
       }
     )
     // get contributions by author
-    await this.documentService.getDocumentByAuthor(localStorage.getItem("userId")).subscribe(
-      docs => this.userDocuments = docs
+    await this.documentService.getDocumentByAuthor(this.loggedUser.id).subscribe(
+      docs => this.userDocuments = docs,
+      error => {console.log(error)}
     )
     // get functions by author
-    await this.gFunctionService.getAllGenFunctions().subscribe(
-      response => this.genFunctions = response
-    )
+    await this.gFunctionService.getGenFunctionsByAuthor(this.loggedUser.id).subscribe(
+      response => this.userFunctions = response,
+      error => {console.log(error)}
+    );
+    console.log(this.userDocuments)
+    console.log(this.userFunctions)
     
   }
 

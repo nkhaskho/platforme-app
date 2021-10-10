@@ -1,10 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { LoggedUser } from 'src/app/models/auth/logged-user';
 import { LoginResponse } from 'src/app/models/auth/login-response';
 import { User } from 'src/app/models/employees/user';
 import { environment } from 'src/environments/environment';
 import { LoginForm } from '../../models/login-form';
+import { ProjectService } from '../employees/project.service';
 import { UserService } from '../employees/user.service';
 
 @Injectable({
@@ -16,13 +18,14 @@ export class AuthService {
   private loggedUser = new BehaviorSubject('');
   currentLoggedUser = this.loggedUser.asObservable();
 
-  constructor(private http: HttpClient, private userService: UserService) { }
+  constructor(private http: HttpClient, private userService: UserService, private projectService: ProjectService) { }
   
   changeLoggedUser(username: string) {
     this.loggedUser.next(username);
   }
 
   authenticate(loginForm: LoginForm): Observable<LoginResponse> {
+    this.projectService.updateProjectsCache();
     return this.http.post<LoginResponse>(`${this.API_URL}/auth/`, loginForm);
   }
 
@@ -38,6 +41,15 @@ export class AuthService {
         this.changeLoggedUser(username);
       }
     )
+  }
+
+  async getLoggedUser() {
+    let currentLoggedUser = new LoggedUser();
+    currentLoggedUser.username = await localStorage.getItem("user") || "";
+    currentLoggedUser.id = await parseInt(localStorage.getItem("userId") || "0");
+    currentLoggedUser.role = await localStorage.getItem("role") || "TEAM_MEMBER";
+    currentLoggedUser.project = await parseInt(localStorage.getItem("project") || "0");
+    return currentLoggedUser;
   }
 
   logOutUser() {
